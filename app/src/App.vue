@@ -33,27 +33,34 @@
     margin: 0;
     padding: 0;
     font-family: 'Ubuntu', sans-serif;
+    list-style: none;
   }
   .container {
     width: 95vw;
     margin: 0 auto;
   }
   .button {
-    border-radius: 25px;
-    border-bottom: solid 3px #40637e;
+    border-radius: 3px;
+    border: solid 2px #5F93BB;
     padding: 5px;
     width: 100%;
-    background-color: #5F93BB;
     cursor: pointer;
+    a {
+      color: #5F93BB!important;
+    }
   }
 
   .button-red {
-    border-radius: 25px;
-    border-bottom: solid 3px #ae3f3f;
+    border-radius: 3px;
+    border: solid 3px #E45353;
     padding: 5px;
-    width: 10%;
-    background-color: #E45353;
+    width: 100%;
     cursor: pointer;
+    background-color: transparent;
+    color: #E45353!important;
+    a {
+      color: #E45353!important;
+    }
   }
 
   .is-hidden {

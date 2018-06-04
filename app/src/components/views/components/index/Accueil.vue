@@ -3,7 +3,11 @@
     <div class="container">
       <h1 class="ml-20">Bienvenue chez</h1>
       <img src="../../../../assets/logo2.png" alt="">
-      <div class="button-red ml-20"><p>Où êtes-vous ?</p></div>
+      <label for="adress">où êtes-vous ?</label>
+      <div>
+        <input type="text" id="adress">
+        <button class="button-red">Go !</button>
+      </div>
     </div>
   </section>
 </template>
