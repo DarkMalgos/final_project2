@@ -1,11 +1,39 @@
 <template>
   <header id="menu">
     <nav class="container">
-      <ul></ul>
+      <ul>
+          <li>
+              <p>à propos</p>
+              <ul class="is-hidden">
+                  <li>
+                      <router-link to="">comment ça marche ?</router-link>
+                  </li>
+                  <li>
+                      <router-link to="">qui sommes-nous ?</router-link>
+                  </li>
+              </ul>
+          </li>
+          <li class="ml-20">
+              <router-link to="">commander</router-link>
+          </li>
+          <li class="ml-20">
+              <router-link to="">contact</router-link>
+          </li>
+      </ul>
       <router-link to="/" id="logo">
         <img src="../../assets/logo2.png" alt="">
       </router-link>
-      <ul></ul>
+      <ul>
+          <li>
+              <router-link to="/sign-in">connexion</router-link>
+          </li>
+          <li class="ml-20 button">
+              <router-link to="">inscription</router-link>
+          </li>
+          <li class="ml-20">
+              <router-link to=""><img src="" alt=""></router-link>
+          </li>
+      </ul>
     </nav>
   </header>
 </template>
@@ -31,79 +59,20 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       #logo img {
-        margin-top: 10px;
-        width: 145px;
+          margin: 10px 40px 0 40px;
+          width: 145px;
       }
-      ul {
-        height: 100%;
-      }
-      .link-container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        .basket {
-          background-color: #5F93BB;
-          width: 100%;
-          border-radius: 50%;
-          border-bottom: solid 3px #40637e;
-          border-right: solid 3px #40637e;
-          position: relative;
-          &:after {
-            content: '0';
-            position: absolute;
-            background-color: #E45353;
-            border-bottom: solid 3px #ae3f3f;
-            border-right: solid 3px #ae3f3f;
-            color: white;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 5px;
-            bottom: -5px;
-            right: -5px;
-          }
-        }
-        &:last-of-type{
-          .link:last-of-type {
-            padding: 0 5px;
-            width: 100px;
-          }
-          a {
-            color: white!important;
-          }
-          .link:first-of-type {
-            margin-right: 20px;
-            a {
-              color: black!important;
-            }
-          }
-        }
-        .link {
-          list-style: none;
+      ul{
+          height: 100%;
           display: flex;
-          justify-content: center;
           align-items: center;
+          justify-content: space-between;
           a {
-            text-decoration: none;
-            color: black;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            p {
-              margin-left: 5px;
-              transform: rotate(90deg);
-            }
+              text-decoration: none;
+              color: black;
           }
-          img {
-            width: 100%;
-          }
-        }
       }
     }
   }
