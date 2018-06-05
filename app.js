@@ -25,6 +25,7 @@ app.use(session({
     secret: '5vcqF3nODA-xsIRCH3ter-8kFV2G4BIl-93HWJxdu2p',
     cookie: { maxAge: 14 * 24 * 3600000 }
 }))
+
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect

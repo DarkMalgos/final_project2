@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+/*var mysql = require('mysql');
 
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -24,4 +24,4 @@ function sendQuery(query, callback) {
 
 module.exports =({
     sendQuery: sendQuery
-});
+});*/
