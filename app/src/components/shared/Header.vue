@@ -2,35 +2,35 @@
     <header id="menu">
         <nav class="container">
             <ul>
-                <li class="drop">
-                    <p @click="showDrop">à propos</p>
-                    <ul v-if="drop" class="dropped">
+                <li id="drop">
+                    <p>À propos</p>
+                    <ul class="dropped">
                         <li class="mb-20">
-                            <a @click="scrollInto('#how-it-work')">comment ça marche ?</a>
+                            <a @click="scrollInto('#how-it-work')">Comment ça marche ?</a>
                         </li>
                         <li class="mb-10">
-                            <a @click="scrollInto('#who-we-are')"">qui sommes-nous ?</a>
+                            <a @click="scrollInto('#who-we-are')">Qui sommes-nous ?</a>
                         </li>
                     </ul>
                 </li>
-                <li class="ml-20">
-                    <router-link to="">commander</router-link>
+                <li class="ml-40">
+                    <router-link to="">Commander</router-link>
                 </li>
-                <li class="ml-20">
-                    <router-link to="">contact</router-link>
+                <li class="ml-40">
+                    <router-link to="">Contact</router-link>
                 </li>
             </ul>
-            <router-link to="/" id="logo">
+            <a @click="scrollInto('#ship')" id="logo" class="ml-60">
                 <img src="../../assets/logo2.png" alt="">
-            </router-link>
-            <ul>
+            </a>
+            <ul class="ml-60">
                 <li>
-                    <router-link to="/sign-in">connexion</router-link>
+                    <router-link to="/sign-in">Connexion</router-link>
                 </li>
-                <li class="ml-20 button">
-                    <router-link to="">inscription</router-link>
+                <li class="ml-40 button">
+                    <router-link to="">Inscription</router-link>
                 </li>
-                <li class="ml-20">
+                <li class="ml-40">
                     <router-link to=""><img src="../../assets/basket.png" alt=""></router-link>
                 </li>
             </ul>
@@ -47,16 +47,17 @@
             }
         },
         methods: {
-            showDrop() {
-                this.drop = true
-
-                //document.querySelector('#menu').style.padding = '0 0 55px 0'
-                document.querySelectorAll('.drop')[0].classList.add('align-drop')
-            },
             scrollInto(ancre) {
-                document.querySelector(ancre).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                if (window.location.pathname != '/') {
+                    let link = document.createElement('a')
+                    ancre != '#ship' ? link.setAttribute('href', `/${ancre}`) : link.setAttribute('href', `/`)
+                    link.click()
+                } else {
+                    document.querySelector(ancre).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+                }
             }
         }
     }
@@ -79,7 +80,8 @@
             align-items: center;
             justify-content: center;
             #logo img {
-                margin: 10px 40px 0 40px;
+                cursor: pointer;
+                margin-top: 10px;
                 width: 145px;
             }
             ul {
@@ -99,14 +101,15 @@
                     li:last-child {
                         a {
                             img {
-                                width: 50px;
+                                width: 30px;
                             }
                             position: relative;
                             &:after {
                                 content: '0';
+                                font-size: 10px;
                                 position: absolute;
-                                width: 20px;
-                                height: 20px;
+                                width: 15px;
+                                height: 15px;
                                 background-color: #E45353;
                                 color: white;
                                 bottom: 0;
@@ -121,17 +124,21 @@
                     }
                 }
             }
-            .align-drop {
+            #drop:hover {
                 text-align: right;
-                margin-top: 36.5%;
+                padding-top: 28.25%;
+                position: relative;
                 p {
-                    margin-bottom: 20px;
+                    margin-bottom: 83px;
+                }
+                .dropped {
+                    display: flex;
                 }
             }
             .dropped {
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
+                display: none;
+                position: absolute;
+                text-align: right;
                 -webkit-box-orient: vertical;
                 -webkit-box-direction: normal;
                 -ms-flex-direction: column;
@@ -141,13 +148,16 @@
                 justify-content: flex-end;
                 align-items: flex-end;
                 height: auto;
+                width: 200px;
                 background-color: #FBFBFB;
                 padding: 15px;
                 text-align: right;
-                box-shadow: 0px 5px 6px rgba(0, 0, 0, .2);
+                box-shadow: 0px 5px 6px rgba(106, 146, 183, .2);
+                bottom: -10%;
+                right: 0;
                 a {
                     &:after {
-                        display: none!important;
+                        display: none !important;
                     }
                 }
             }

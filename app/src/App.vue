@@ -82,8 +82,16 @@
         display: none !important;
     }
 
-    .ml-20 {
-        margin-left: 20px;
+    .ml {
+        &-20 {
+            margin-left: 20px;
+        }
+        &-40 {
+            margin-left: 40px;
+        }
+        &-60 {
+            margin-left: 60px;
+        }
     }
 
     .mb {

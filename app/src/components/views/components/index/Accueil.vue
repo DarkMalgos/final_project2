@@ -1,12 +1,10 @@
 <template>
   <section id="ship">
     <div class="container">
-      <h1 class="ml-20">Bienvenue chez</h1>
-      <img src="../../../../assets/logo2.png" alt="">
-      <label for="adress">où êtes-vous ?</label>
+      <h1>Le bien mangé français livré où vous voulez !</h1>
       <div>
-        <input type="text" id="adress">
-        <button class="button-red">Go !</button>
+        <input type="text" id="adress" placeholder="10 avenue du maine, Paris, 750015">
+        <div><img src="../../../../assets/search.png" alt=""></div>
       </div>
     </div>
   </section>
@@ -33,7 +31,8 @@
       justify-content: center;
       height: 100%;
       h1 {
-        margin-bottom: 20px;
+        margin-bottom: 50px;
+        font-size: 25px;
       }
       img {
         width: 500px;
@@ -42,7 +41,34 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        color: white;
+        width: 550px;
+        height: 30px;
+        box-shadow: 0px 12px 6px rgba(0, 0, 0, .2);
+        input {
+          width: 90%;
+          height: 100%;
+          padding: 10px;
+          border: none;
+          font-size: 20px;
+          &::placeholder {
+            color: rgba(0,0,0,.41);
+            font-size: 20px;
+          }
+        }
+        div {
+          width: 10%;
+          background-color: #5F93BB;
+          height: 100%;
+          padding: 10px 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-shadow: none;
+          img {
+            height: 80%;
+            width: auto;
+          }
+        }
       }
     }
   }
