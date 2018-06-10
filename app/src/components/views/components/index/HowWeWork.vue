@@ -17,6 +17,11 @@
                     <img src="../../../../assets/delivery.png" alt="">
                     <h3>Nous livrons</h3>
                 </div>
+                <div class="line"></div>
+                <div>
+                    <img src="../../../../assets/eat.png" alt="">
+                    <h3>Vous mangez</h3>
+                </div>
             </div>
         </div>
     </section>
@@ -30,7 +35,7 @@
 
 <style scoped lang="scss">
     section {
-        height: 15vh !important;
+        height: 35vh !important;
         div {
             display: flex;
             flex-direction: column;
@@ -64,12 +69,7 @@
                         font-size: 15px;
                     }
                 }
-                div:last-child {
-                    img {
-                        margin-top: 5px;
-                        width: 80px;
-                    }
-                }
+
             }
             .line {
                 height: 3px;

@@ -2,22 +2,23 @@
     <main id="app">
         <Header></Header>
         <router-view/>
+        <Footer></Footer>
     </main>
 </template>
 
 <script>
     import Header from './components/shared/Header'
+    import Footer from './components/shared/Footer'
 
     export default {
         name: 'App',
         components: {
-            Header
+            Header,
+            Footer
         },
         mounted() {
             console.log('test to post')
-            this.$http.post('http://localhost:3000/users/', {
-                name: 'toto'
-            })
+            this.$http.get('http://labonnefranquette.ml:3000/api/users/')
                 .then(response => {
                     console.log(response.data)
                 })

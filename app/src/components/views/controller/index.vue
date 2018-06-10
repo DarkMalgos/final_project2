@@ -2,7 +2,7 @@
   <section id="index">
     <Accueil></Accueil>
     <HowWeWork></HowWeWork>
-    <!--<WhoWeAre></WhoWeAre>-->
+    <WhoWeAre></WhoWeAre>
   </section>
 </template>
 

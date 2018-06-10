@@ -50,6 +50,8 @@
           padding: 10px;
           border: none;
           font-size: 20px;
+          border-bottom-left-radius: 3px;
+          border-top-left-radius: 3px;
           &::placeholder {
             color: rgba(0,0,0,.41);
             font-size: 20px;
@@ -57,13 +59,15 @@
         }
         div {
           width: 10%;
-          background-color: #5F93BB;
+          background-color: #E45353;
           height: 100%;
           padding: 10px 0;
           display: flex;
           justify-content: center;
           align-items: center;
           box-shadow: none;
+          border-bottom-right-radius: 3px;
+          border-top-right-radius: 3px;
           img {
             height: 80%;
             width: auto;

@@ -74,6 +74,7 @@
         width: 100%;
         box-shadow: 0px 3px 6px rgba(0, 0, 0, .2);
         background-color: #FBFBFB;
+        z-index: 1000;
         nav {
             display: flex;
             flex-direction: row;

@@ -1,10 +1,10 @@
-/*var mysql = require('mysql');
+const mysql = require('mysql');
 
-var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'bonne_franquette'
+const connection = mysql.createConnection({
+    host     : 'mysql-bonne-franquette.alwaysdata.net',
+    user     : '158558',
+    password : 'totolola42',
+    database : 'bonne-franquette_bdd'
 });
 
 connection.connect(function (err) {
@@ -24,4 +24,4 @@ function sendQuery(query, callback) {
 
 module.exports =({
     sendQuery: sendQuery
-});*/
+});
