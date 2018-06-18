@@ -24,12 +24,22 @@
                 <img src="../../assets/logo2.png" alt="">
             </a>
             <ul class="ml-60">
-                <li>
-                    <router-link to="/sign-in">Connexion</router-link>
-                </li>
-                <li class="ml-40 button">
-                    <router-link to="">Inscription</router-link>
-                </li>
+                <template v-if="!user">
+                    <li>
+                        <router-link to="/sign-in">Connexion</router-link>
+                    </li>
+                    <li class="ml-40 button">
+                        <router-link to="/sign-up">Inscription</router-link>
+                    </li>
+                </template>
+                <template v-if="user">
+                    <li>
+                        <router-link to="/account">Mon compte</router-link>
+                    </li>
+                    <li class="ml-40 button">
+                        <router-link to="/logout">Déconnection</router-link>
+                    </li>
+                </template>
                 <li class="ml-40">
                     <router-link to=""><img src="../../assets/basket.png" alt=""></router-link>
                 </li>
@@ -41,9 +51,13 @@
 <script>
     export default {
         name: "Header",
+        props: {
+            user: Boolean
+        },
         data() {
             return {
-                drop: false
+                drop: false,
+                nb_items: 0,
             }
         },
         methods: {
@@ -58,6 +72,12 @@
                     });
 
                 }
+            }
+        },
+        computed() {
+            if (this.$user) {
+                console.log('toto')
+                this.connect = true
             }
         }
     }

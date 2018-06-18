@@ -3,8 +3,8 @@
     <div class="container">
       <h1>Le bien mangé français livré où vous voulez !</h1>
       <div>
-        <input type="text" id="adress" placeholder="10 avenue du maine, Paris, 750015">
-        <div><img src="../../../../assets/search.png" alt=""></div>
+        <input ref="autocomplete" type="text" id="adress" placeholder="10 avenue du maine, Paris, 750015" v-model="address" @keyup.enter="goCommander">
+        <div @click="goCommander"><img src="../../../../assets/search.png" alt=""></div>
       </div>
     </div>
   </section>
@@ -12,7 +12,39 @@
 
 <script>
     export default {
-        name: "Accueil"
+        name: "Accueil",
+        data() {
+            return {
+                address: '',
+                auto_address: '',
+                autocomplete: ''
+            }
+        },
+        methods: {
+            goCommander() {
+                if (this.address == '') {
+                    return
+                }
+                //this.$router.push('/order')
+            }
+        },
+        mounted() {
+            this.autocomplete = new google.maps.places.Autocomplete(
+                (this.$refs.autocomplete),
+                {
+                    types: ['geocode'],
+                    componentRestrictions: {
+                        country: "FR"
+                    },
+                    language: 'fr'
+                }
+            );
+            /*this.autocomplete.addEventListener('place_changed', () => {
+                let place = this.autocomplete.getPlace()
+                console.log(place)
+                this.auto_address = place.formatedAdress
+            })*/
+        }
     }
 </script>
 
@@ -21,7 +53,7 @@
     height: 90vh;
     width: 100%;
     margin-top: 10vh;
-    background: url("../../../../assets/accueil.jpg") center no-repeat;
+    background: url("../../../../assets/accueil2.jpg") center no-repeat;
     background-size: cover;
     .container {
       //background-color: red;

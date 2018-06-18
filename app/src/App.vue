@@ -1,7 +1,7 @@
 <template>
     <main id="app">
-        <Header></Header>
-        <router-view/>
+        <Header v-bind:user="user"></Header>
+        <router-view v-on:connect="connect" :user="user"/>
         <Footer></Footer>
     </main>
 </template>
@@ -12,19 +12,30 @@
 
     export default {
         name: 'App',
+        data() {
+            return {
+                affModal: false,
+                modalMess: '',
+                user: false
+            }
+        },
         components: {
             Header,
             Footer
         },
+        methods: {
+            connect() {
+                this.user = true
+            }
+        },
         mounted() {
-            console.log('test to post')
-            this.$http.get('http://labonnefranquette.ml:3000/api/users/')
+            this.$http.get('http://localhost:3000/api/users')
                 .then(response => {
-                    console.log(response.data)
-                })
-                .catch(e => {
+                    if (response.data.user != undefined)
+                        this.connect = true
+                }).catch(e => {
                     console.error(e)
-                })
+            })
         }
     }
 </script>
@@ -44,6 +55,8 @@
         padding: 0;
         list-style: none;
         font-family: 'moon_2.0regular';
+        letter-spacing: 1.5px;
+        word-spacing: -9px;
     }
 
     body {
@@ -56,13 +69,23 @@
     }
 
     .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border-radius: 3px;
         border: solid 2px #5F93BB;
         padding: 5px;
-        width: 100%;
         cursor: pointer;
+        transition: all ease .5s;
         a {
             color: #5F93BB !important;
+            transition: all ease .5s;
+        }
+        &:hover {
+            background-color: #5F93BB;
+            a {
+                color: white!important;
+            }
         }
     }
 

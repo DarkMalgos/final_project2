@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-    host     : 'mysql-bonne-franquette.alwaysdata.net',
-    user     : '158558',
-    password : 'totolola42',
-    database : 'bonne-franquette_bdd'
+    host     : process.env.DB_HOST,
+    user     : process.env.DB_USER,
+    password : process.env.DB_PASS,
+    database : process.env.DB_NAME
 });
 
 connection.connect(function (err) {

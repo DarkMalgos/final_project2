@@ -3,7 +3,8 @@ const createError =     require('http-errors'),
       session =         require('express-session'),
       path =            require('path'),
       cookieParser =    require('cookie-parser'),
-      logger =          require('morgan')
+      logger =          require('morgan'),
+      dotenv =            require('dotenv').config()
 
 const usersRouter = require('./routes/users');
 
@@ -21,14 +22,16 @@ app.use('/css', express.static('public/stylesheets'));
 app.use('/img', express.static('public/images'));
 app.use('/js', express.static('public/javascripts'));
 app.use(session({
-    secret: '5vcqF3nODA-xsIRCH3ter-8kFV2G4BIl-93HWJxdu2p',
-    cookie: { maxAge: 14 * 24 * 3600000 }
+    secret: 'pikachu',
+    cookie: { maxAge: 14 * 24 * 3600000 },
+    resave: true,
+    saveUninitialized: true
 }))
 
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080/');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');

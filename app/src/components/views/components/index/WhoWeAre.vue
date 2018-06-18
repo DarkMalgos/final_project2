@@ -52,7 +52,8 @@
 
 <style lang="scss" scoped>
     section {
-        height: 80vh !important;
+        height: auto !important;
+        margin-bottom: 40px;
         .container {
             display: flex;
             flex-direction: column;
@@ -67,6 +68,7 @@
             }
             h3 {
                 margin-bottom: 20px;
+                word-spacing: -7px;
             }
         }
         .body-container {
@@ -120,6 +122,7 @@
                 &:last-child {
                     margin-top: 30px;
                     .circle {
+                        margin-top: 0;
                         img, .description {
                             width: 100%;
                         }
