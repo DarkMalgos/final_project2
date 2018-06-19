@@ -10,6 +10,7 @@
 
 <style lang="scss" scoped>
     footer {
+        align-self: flex-end;
         display: flex;
         flex-direction: row;
         align-items: center;

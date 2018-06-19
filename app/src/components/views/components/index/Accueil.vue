@@ -3,7 +3,7 @@
     <div class="container">
       <h1>Le bien mangé français livré où vous voulez !</h1>
       <div>
-        <input ref="autocomplete" type="text" id="adress" placeholder="10 avenue du maine, Paris, 750015" v-model="address" @keyup.enter="goCommander">
+        <input ref="autocomplete" type="text" id="adress" placeholder="10 avenue du maine, Paris, 750015" @keyup.enter="goCommander">
         <div @click="goCommander"><img src="../../../../assets/search.png" alt=""></div>
       </div>
     </div>
@@ -16,8 +16,7 @@
         data() {
             return {
                 address: '',
-                auto_address: '',
-                autocomplete: ''
+                auto_address: ''
             }
         },
         methods: {
@@ -25,7 +24,7 @@
                 if (this.address == '') {
                     return
                 }
-                //this.$router.push('/order')
+                this.$router.push(`/order?order=${this.address}`)
             }
         },
         mounted() {
@@ -39,11 +38,10 @@
                     language: 'fr'
                 }
             );
-            /*this.autocomplete.addEventListener('place_changed', () => {
+            this.autocomplete.addListener('place_changed', () => {
                 let place = this.autocomplete.getPlace()
-                console.log(place)
-                this.auto_address = place.formatedAdress
-            })*/
+                this.address = place.formatted_address
+            })
         }
     }
 </script>

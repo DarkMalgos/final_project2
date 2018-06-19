@@ -63,6 +63,14 @@
         background-color: #FBFBFB;
     }
 
+    #main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: auto;
+        width: 100vw;
+    }
+
     .container {
         width: 95vw;
         margin: 0 auto;

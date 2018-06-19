@@ -85,6 +85,7 @@
 
 <style scoped lang="scss">
     #menu {
+        align-self: flex-start;
         position: fixed;
         top: 0;
         display: flex;
