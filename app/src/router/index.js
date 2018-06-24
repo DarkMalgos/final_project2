@@ -4,6 +4,8 @@ import index from '../components/views/controller/index'
 import signIn from '../components/views/controller/signIn'
 import signUp from '../components/views/controller/signUp'
 import catalog from '../components/views/controller/catalog'
+import billing from '../components/views/controller/billing'
+import contact from '../components/views/controller/contact'
 
 Vue.use(Router)
 
@@ -29,6 +31,16 @@ export default new Router({
             path: '/order',
             name: 'catalog',
             component: catalog
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: contact
+        },
+        {
+            path: '/billing',
+            name: 'billing',
+            component: billing
         }
     ]
 })

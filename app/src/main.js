@@ -2,11 +2,13 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import axios from 'axios'
+import VueCookies from 'vue-cookies'
 import App from './App'
 import router from './router'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+Vue.prototype.$cookies = VueCookies
 
 /* eslint-disable no-new */
 new Vue({

@@ -85,9 +85,9 @@
                     user: this.user,
                     address: this.address
                 }).then(response => {
-                    console.log(response.data)
+                    console.log(response.data.user)
                     if (response.data.user){
-                        this.$emit('connect')
+                        this.$emit('connect', response.data.user)
                         this.$router.push('/')
                     }
                 })
@@ -152,18 +152,10 @@
                     outline: 0;
                     resize: none;
                     background-color: transparent;
-                    letter-spacing: 1.5px;
-                    word-spacing: -9px;
                     font-size: 15px;
                     &::placeholder {
-                        letter-spacing: 1.5px;
-                        word-spacing: -4px;
                         font-size: 15px;
                     }
-                }
-                label {
-                    word-spacing: -9px;
-                    letter-spacing: 1.5px;
                 }
                 input + label {
                     position: absolute;

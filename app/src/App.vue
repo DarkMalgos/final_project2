@@ -1,6 +1,6 @@
 <template>
     <main id="app">
-        <Header v-bind:user="user"></Header>
+        <Header v-bind:user="user" v-on:disconnect="disconnect"></Header>
         <router-view v-on:connect="connect" :user="user"/>
         <Footer></Footer>
     </main>
@@ -24,39 +24,29 @@
             Footer
         },
         methods: {
-            connect() {
+            connect(user) {
                 this.user = true
+                this.$cookies.set('user', user, "14d")
+            },
+            disconnect() {
+                this.user = false
             }
         },
         mounted() {
-            this.$http.get('http://localhost:3000/api/users')
-                .then(response => {
-                    if (response.data.user != undefined)
-                        this.connect = true
-                }).catch(e => {
-                    console.error(e)
-            })
+
+            let user = this.$cookies.get('user')
+            if (user != null)
+                this.connect()
         }
     }
 </script>
 
 <style lang="scss">
-    @font-face {
-        font-family: 'moon_2.0regular';
-        src: url('assets/font/moon2.0-regular-webfont.woff2') format('woff2'),
-        url('assets/font/moon2.0-regular-webfont.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-
-    }
-
     * {
         margin: 0;
         padding: 0;
         list-style: none;
-        font-family: 'moon_2.0regular';
-        letter-spacing: 1.5px;
-        word-spacing: -9px;
+        font-family: 'Lato', sans-serif;
     }
 
     body {
@@ -82,9 +72,10 @@
         align-items: center;
         border-radius: 3px;
         border: solid 2px #5F93BB;
-        padding: 5px;
+        height: auto;
         cursor: pointer;
         transition: all ease .5s;
+        padding: 5px;
         a {
             color: #5F93BB !important;
             transition: all ease .5s;

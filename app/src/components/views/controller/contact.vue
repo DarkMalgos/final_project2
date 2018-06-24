@@ -1,51 +1,52 @@
 <template>
-  <section id="signin">
-    <form @submit.prevent="connection" class="form-container">
-        <p v-if="errCo">{{error}}</p>
-        <div class="control">
-            <input id="email" type="email" placeholder="Email" v-model="user.email" required>
-            <label for="email">Email</label>
+    <section id="contact">
+        <div class='block'>
+            <form @submit.prevent="connection" class="form-container">
+                <div class="control">
+                    <input id="email" type="email" placeholder="Email" v-model="mail.email" required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="control">
+                    <input id="sujet" type="text" placeholder="Votre sujet" v-model="mail.sujet" required>
+                    <label for="sujet">Votre sujet</label>
+                </div>
+                <div class="control">
+                    <label for="message">Message</label>
+                    <textarea name="" id="message" cols="30" rows="10" placeholder="Message..."
+                              v-model="mail.message"></textarea>
+                </div>
+                <div class="submit">
+                    <button type="submit" class="button">Envoyer</button>
+                </div>
+            </form>
+            <div class="illu"></div>
         </div>
-        <div class="control">
-            <input id="password" type="password" placeholder="Mot de passe" v-model="user.password" required>
-            <label for="password">Mot de passe</label>
+        <div class="information">
+            <div>
+                <img src="" alt="">
+                <p></p>
+            </div>
+            <div>
+                <img src="" alt="">
+                <p></p>
+            </div>
         </div>
-      <input type="submit" class="button">
-    </form>
-      <div class="illu"></div>
-  </section>
+    </section>
 </template>
 
 <script>
-
-  export default {
-    name: "signIn",
-      data() {
-        return {
-            user: {
-                email: '',
-                password: ''
-            },
-            error: '',
-            errCo: false
-        }
-      },
-    methods: {
-        connection() {
-            this.$http.post('http://localhost:3000/api/users/connexion', {
-                user: this.user
-            }).then(response => {
-                if (response.data.user) {
-                    this.$emit('connect', response.data.user);
-                    this.$router.push('/')
-                } else {
-                    this.error = response.data
-                    this.errCo = true
+    export default {
+        name: "contact",
+        data() {
+            return {
+                mail: {
+                    email: '',
+                    sujet: '',
+                    message: ''
                 }
-            })
+            }
         }
     }
-  }
 </script>
 
 <style lang="scss" scoped>
@@ -55,12 +56,27 @@
         box-sizing: border-box;
     }
 
-    #signin {
+    #contact {
         height: 100vh;
         width: 100vw;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: flex-start;
+        .block {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            .illu {
+                height: 100%;
+                width: 30%;
+                background: url("../../../assets/connexion.jpg") no-repeat center;
+                background-size: cover;
+            }
+        }
         .form-container {
             width: 40%;
             margin: 0 auto;
@@ -73,10 +89,6 @@
             justify-content: space-between;
             font-size: 15px;
             margin: 20px 0;
-            .pass-not-match {
-                align-self: center;
-                color: #E45353;
-            }
             .groupir {
                 display: flex;
                 flex-direction: row;
@@ -94,6 +106,15 @@
                 border-bottom: 1px solid #ddd;
                 padding-top: 23px;
                 padding-bottom: 10px;
+                &:nth-of-type(3) {
+                    border: none;
+                }
+                textarea {
+                    margin-top: 10px;
+                    resize: none;
+                    width: 100%;
+
+                }
                 input {
                     display: block;
                     width: 100%;
@@ -129,22 +150,18 @@
                     top: 3px;
                 }
             }
-            .button {
+            .submit{
                 margin-top: 30px;
-                font-size: 15px;
-                width: 20%;
                 align-self: flex-end;
-                color: #5F93BB;
-                &:hover {
-                    color: white;
+                button{
+                    color: #5F93BB;
+                    font-size: 15px;
+                    padding: 8px 15px;
+                    &:hover {
+                        color: white;
+                    }
                 }
             }
         }
-    }
-    .illu {
-        height: 100%;
-        width: 30%;
-        background: url("../../../assets/connexion.jpg") no-repeat center;
-        background-size: cover;
     }
 </style>

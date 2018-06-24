@@ -22,13 +22,13 @@ router.post('/', function (req, res, next) {
         }
     })
 
-    bcrypt.hash(req.body.user.password, process.env.SALT).then(function (hash) {
+    bcrypt.hash(req.body.user.password, 10).then(function (hash) {
         database.sendQuery(`INSERT INTO users (firstname, lastname, email, password, tel) VALUES ('${req.body.user.firstname}', '${req.body.user.lastname}', '${req.body.user.email}', '${hash}', '${req.body.user.tel}')`, function (err, results) {
             if (err) {
                 console.error('error in adding user', err)
                 return
             }
-            req.session.toto = results.insertId
+            req.session.user = results.insertId
             database.sendQuery(`INSERT INTO address (street, city, zipcode, id_user) VALUES ('${req.body.address.street}', '${req.body.address.city}', '${req.body.address.zipcode}', ${results.insertId})`, function (err, results) {
                 if (err) console.error('error in adding address', err)
                 req.session.save(function(err) {
@@ -61,7 +61,6 @@ router.post('/connexion', function (req,res, next) {
                         if (err) {
                             console.error('error in save session', err)
                         } else {
-                            console.log(req.session)
                             res.json({
                                 user: req.session.user
                             })

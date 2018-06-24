@@ -17,7 +17,7 @@
                     <router-link to="">Commander</router-link>
                 </li>
                 <li class="ml-40">
-                    <router-link to="">Contact</router-link>
+                    <router-link to="/contact">Contact</router-link>
                 </li>
             </ul>
             <a @click="scrollInto('#ship')" id="logo" class="ml-60">
@@ -36,11 +36,11 @@
                     <li>
                         <router-link to="/account">Mon compte</router-link>
                     </li>
-                    <li class="ml-40 button">
-                        <router-link to="/logout">Déconnection</router-link>
+                    <li class="ml-40 button" @click.prevent="disconnect">
+                        <router-link to="javascript:void(0)">Déconnection</router-link>
                     </li>
                 </template>
-                <li class="ml-40">
+                <li class="ml-40" id="basket">
                     <router-link to=""><img src="../../assets/basket.png" alt=""></router-link>
                 </li>
             </ul>
@@ -72,12 +72,21 @@
                     });
 
                 }
+            },
+            disconnect() {
+                this.$cookies.remove('user')
+                this.$emit('disconnect')
+                this.$router.push('/')
             }
         },
-        computed() {
-            if (this.$user) {
-                console.log('toto')
-                this.connect = true
+        mounted() {
+            let cookie = this.$cookies.get('cart')
+            if (cookie != null) {
+                cookie = JSON.parse(cookie)
+                let quantity = 0
+                for (let item of cookie.cart) {
+                    quantity += item.quantity
+                }
             }
         }
     }
@@ -93,7 +102,7 @@
         align-items: center;
         height: 10vh;
         width: 100%;
-        box-shadow: 0px 3px 6px rgba(0, 0, 0, .2);
+        box-shadow: 0px 3px 6px rgba(99, 150, 189, .16);
         background-color: #FBFBFB;
         z-index: 1000;
         nav {
@@ -140,7 +149,6 @@
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
-                                font-family: 'Ubuntu', sans-serif;
                             }
                         }
                     }
