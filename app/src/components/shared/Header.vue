@@ -41,7 +41,7 @@
                     </li>
                 </template>
                 <li class="ml-40" id="basket">
-                    <router-link to=""><img src="../../assets/basket.png" alt=""></router-link>
+                    <router-link to="/cart"><img src="../../assets/basket.png" alt=""></router-link>
                 </li>
             </ul>
         </nav>

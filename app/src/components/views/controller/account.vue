@@ -2,15 +2,18 @@
     <section>
         <notifications group="account" classes="my-notification"></notifications>
         <info v-on:update="update"></info>
+        <addresses></addresses>
     </section>
 </template>
 
 <script>
     import info from '../components/account/user_infos'
+    import addresses from '../components/account/user_address'
 
     export default {
         components: {
-            info
+            info,
+            addresses
         },
         methods: {
             update(text) {
@@ -27,6 +30,7 @@
 
 <style lang="scss" scoped>
     section {
-        height: 100vh;
+        min-height: 100vh;
+        height: auto;
     }
 </style>

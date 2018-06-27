@@ -101,6 +101,7 @@
                             <p>Total</p>
                             <p>{{Total}} €</p>
                         </div>
+                        <router-link to="/cart" tag="button" class="button">Valider</router-link>
                     </div>
                 </div>
             </div>
@@ -150,7 +151,6 @@
             }
         },
         mounted() {
-            console.log(this.taxe)
             let cookie = this.$cookies.get('cart')
             if (cookie != null) {
                 cookie = JSON.parse(cookie)
@@ -175,7 +175,6 @@
                 this.address = place.formatted_address
             })
             this.address = window.location.search.split('=')[1].replace(/%20/g, ' ')
-            console.log(this.address)
             this.$http.get(`http://localhost:3000/api/products/${this.filter}`)
                 .then(response => {
                     for (let product of response.data) {
@@ -552,6 +551,17 @@
                         justify-content: space-between;
                     }
                 }
+            }
+        }
+        .button {
+            float: right;
+            margin-right: 10px;
+            margin-top: 20px;
+            transition: all ease .2s;
+            color: #5F93BB;
+            font-size: 17px;
+            &:hover {
+                color: white;
             }
         }
     }

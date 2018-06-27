@@ -55,7 +55,7 @@
         },
         methods: {
             update() {
-                this.$http.post(`http://localhost:3000/api/users/${this.id}`,{
+                this.$http.post(`http://localhost:3000/api/users/update/${this.id}`,{
                     user: this.user
                 })
                     .then(response => {
@@ -74,6 +74,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        min-height: auto;
+        height: 100%;
         form {
             height: 30%;
             display: flex;

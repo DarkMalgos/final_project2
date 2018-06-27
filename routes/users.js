@@ -28,7 +28,7 @@ router.get('/:id', function (req, res, next) {
     })
 });
 
-router.post('/:id', function (req, res, next) {
+router.post('/update/:id', function (req, res, next) {
     let id = req.params.id
 
     database.sendQuery(`UPDATE users SET firstname='${req.body.user.firstname}', lastname='${req.body.user.lastname}', email='${req.body.user.email}', tel='${req.body.user.tel}' WHERE id = ${id}`, (err, results) => {

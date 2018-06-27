@@ -4,10 +4,11 @@ const createError =     require('http-errors'),
       path =            require('path'),
       cookieParser =    require('cookie-parser'),
       logger =          require('morgan'),
-      dotenv =            require('dotenv').config()
+      dotenv =          require('dotenv').config()
 
 const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products');
+const addressesRouter = require('./routes/adresses');
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use(function (req, res, next) {
 
 app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
+app.use('/api/addresses', addressesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
