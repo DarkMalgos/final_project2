@@ -1,6 +1,7 @@
 <template>
     <main id="app">
         <Header v-bind:user="user" v-on:disconnect="disconnect"></Header>
+        <notifications group="notify" classes="my-notification"></notifications>
         <router-view v-on:connect="connect" :user="user"/>
         <Footer></Footer>
     </main>
@@ -26,6 +27,7 @@
         methods: {
             connect(user) {
                 this.user = true
+                console.log(user)
                 this.$cookies.set('user', user, "14d")
             },
             disconnect() {
@@ -33,10 +35,10 @@
             }
         },
         mounted() {
-
             let user = this.$cookies.get('user')
-            if (user != null)
-                this.connect()
+            if (user != null) {
+                this.connect(user)
+            }
         }
     }
 </script>
@@ -123,6 +125,28 @@
         }
         &-10 {
             margin-bottom: 10px;
+        }
+    }
+
+    .my-notification {
+        padding: 10px;
+        margin: 0 5px 5px;
+
+        font-size: 16px;
+
+        color: #ffffff;
+        background: #44A4FC;
+
+        &.warn {
+            background: #ffb648;
+        }
+
+        &.error {
+            background: #E54D42;
+        }
+
+        &.success {
+            background: #68CD86;
         }
     }
 </style>

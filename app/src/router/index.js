@@ -6,6 +6,7 @@ import signUp from '../components/views/controller/signUp'
 import catalog from '../components/views/controller/catalog'
 import billing from '../components/views/controller/billing'
 import contact from '../components/views/controller/contact'
+import account from '../components/views/controller/account'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
             path: '/contact',
             name: 'contact',
             component: contact
+        },
+        {
+            path: '/account',
+            name: 'account',
+            component: account
         },
         {
             path: '/billing',

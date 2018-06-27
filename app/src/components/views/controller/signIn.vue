@@ -1,7 +1,7 @@
 <template>
   <section id="signin">
     <form @submit.prevent="connection" class="form-container">
-        <p v-if="errCo">{{error}}</p>
+        <notifications group="erlog" classes="my-notification"></notifications>
         <div class="control">
             <input id="email" type="email" placeholder="Email" v-model="user.email" required>
             <label for="email">Email</label>
@@ -41,6 +41,12 @@
                 } else {
                     this.error = response.data
                     this.errCo = true
+                    this.$notify({
+                        group: 'erlog',
+                        type: 'error',
+                        title: 'Erreur de connexion',
+                        text: response.data
+                    });
                 }
             })
         }

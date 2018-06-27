@@ -5,10 +5,12 @@ import axios from 'axios'
 import VueCookies from 'vue-cookies'
 import App from './App'
 import router from './router'
+import Notifications from 'vue-notification'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$cookies = VueCookies
+Vue.use(Notifications)
 
 /* eslint-disable no-new */
 new Vue({

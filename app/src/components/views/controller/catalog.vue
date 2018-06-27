@@ -17,32 +17,34 @@
         </div>
         <div id="menu" class="container">
             <div class="container-picto">
-                <div class="picto-cube"></div>
+                <div class="picto-cube">
+                    <img src="../../../assets/pin.svg" alt="">
+                </div>
                 <div class="triangle"></div>
             </div>
             <input ref="autocomplete" type="text" v-model="address">
             <div class="loop"><img src="../../../assets/search.png" alt=""></div>
             <div class="order-taxe">
-                <div class="taxe" @click="getTaxe(2)">
+                <div class="taxe" @click="getTaxe('30/40 mins', 2)">
                     <div>
                         <img src="../../../assets/delivery.png" alt="">
                         <p>2€</p>
                     </div>
                     <p>30/40 mins</p>
                 </div>
-                <div class="taxe" @click="getTaxe(3)">
+                <div class="taxe" @click="getTaxe('15/30 mins', 3)">
                     <div>
                         <img src="../../../assets/scoot.png" alt="">
                         <p>3€</p>
                     </div>
                     <p>15/30 mins</p>
                 </div>
-                <div class="taxe active-taxe" @click="getTaxe(4)">
+                <div class="taxe active-taxe" @click="getTaxe('< 15 mins', 4)">
                     <div>
                         <img src="../../../assets/clock.png" alt="">
                         <p>4€</p>
                     </div>
-                    <p>dès que possible</p>
+                    <p>< 15 mins</p>
                 </div>
             </div>
         </div>
@@ -70,7 +72,7 @@
                     <h2>Votre Panier</h2>
                     <p v-if="cart.length>0">Glissez et déposez vos choix ici pour les ajouter</p>
                     <draggable v-model="cart" :options="{group:'product'}" class="cart-products">
-                        <p v-if="cart.length==0">Glissez et déposez vos choix ici pour les ajouter</p>
+                        <p class="flash" v-if="cart.length==0">Glissez et déposez vos choix ici pour les ajouter</p>
                         <div v-for="(product, index) in cart" :key="index" class="cart-item">
                             <button class="delete" @click="deleteCart(index)">X</button>
                             <div>
@@ -92,8 +94,8 @@
                             <p>{{underTotal}} € TTC</p>
                         </div>
                         <div class="more-details">
-                            <p>Frais de livraison</p>
-                            <p>{{taxe}} €</p>
+                            <p>Frais de livraison - {{taxe.txt}}</p>
+                            <p>{{taxe.price}} €</p>
                         </div>
                         <div class="more-details">
                             <p>Total</p>
@@ -139,20 +141,24 @@
                 },
                 delayedDragging: false,
                 address: '',
-                taxe: 4,
+                taxe: {
+                    txt: '< 15 mins',
+                    price: 4
+                },
                 underTotal: 0,
                 Total: 0
             }
         },
         mounted() {
+            console.log(this.taxe)
             let cookie = this.$cookies.get('cart')
             if (cookie != null) {
                 cookie = JSON.parse(cookie)
                 this.cart = cookie.cart
-                this.getTaxe(cookie.taxe)
+                this.getTaxe(cookie.taxe.txt, cookie.taxe.price)
                 this.getUnderTotal()
             } else {
-                this.Total = this.taxe
+                this.Total = this.taxe.price
             }
             this.autocomplete = new google.maps.places.Autocomplete(
                 (this.$refs.autocomplete),
@@ -200,20 +206,19 @@
                 this.products[evt.oldIndex].total = this.products[evt.oldIndex].quantity * this.products[evt.oldIndex].price
                 this.getUnderTotal()
             },
-            getTaxe(taxe) {
+            getTaxe(txt, taxe) {
+                this.taxe.price = taxe
+                this.taxe.txt = txt
                 switch (taxe) {
                     case 2:
-                        this.taxe = taxe
                         document.querySelectorAll('.active-taxe')[0].classList.remove('active-taxe')
                         document.querySelectorAll('.taxe')[0].classList.add('active-taxe')
                         break
                     case 3:
-                        this.taxe = taxe
                         document.querySelectorAll('.active-taxe')[0].classList.remove('active-taxe')
                         document.querySelectorAll('.taxe')[1].classList.add('active-taxe')
                         break
                     case 4:
-                        this.taxe = taxe
                         document.querySelectorAll('.active-taxe')[0].classList.remove('active-taxe')
                         document.querySelectorAll('.taxe')[2].classList.add('active-taxe')
                         break
@@ -230,7 +235,7 @@
                 this.getTotal()
             },
             getTotal() {
-                this.Total = this.underTotal + this.taxe
+                this.Total = this.underTotal + this.taxe.price
                 if (this.$cookies.get('cart') != null)
                     this.$cookies.remove('cart')
                 this.$cookies.set('cart', JSON.stringify({
@@ -249,7 +254,7 @@
                     this.getTotal()
                 else {
                     this.underTotal = 0
-                    this.Total = this.taxe
+                    this.Total = this.taxe.price
                 }
             },
             removeItem(index) {
@@ -259,10 +264,12 @@
                     return
                 }
                 this.itemTotal(index)
+                this.getUnderTotal()
             },
             addItem(index) {
                 this.cart[index].quantity++
                 this.itemTotal(index)
+                this.getUnderTotal()
             },
             itemTotal(index) {
                 this.cart[index].total = this.cart[index].quantity * this.cart[index].price
@@ -325,6 +332,13 @@
                     background-color: #5F93BB;
                     border-bottom-left-radius: 3px;
                     border-top-left-radius: 3px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    img {
+                        width: 55%;
+                        height: 55%;
+                    }
                 }
                 .triangle {
                     width: 0;
@@ -468,6 +482,7 @@
                 width: 25%;
                 padding-top: 20px;
                 padding-bottom: 20px;
+                box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, .5);
                 h2,
                 p {
                     margin-left: 10px;
@@ -478,6 +493,7 @@
                 }
                 .cart-products {
                     margin-top: 10px;
+                    margin-bottom: 10px;
                     width: 100%;
                     display: flex;
                     flex-direction: column;
@@ -524,6 +540,9 @@
                             }
                         }
                     }
+                }
+                .flash {
+                    color: #E45353;
                 }
                 .total {
                     width: 100%;

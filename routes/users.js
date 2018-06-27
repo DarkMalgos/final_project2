@@ -4,9 +4,41 @@ const express = require('express'),
 const database = require('../services/database.js');
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-    console.log(req.session)
-    res.json(req.session.user)
+router.get('/:id', function (req, res, next) {
+    let id = req.params.id
+
+    database.sendQuery(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
+        if (err) {
+            console.error('error in fetching users', err)
+            return
+        }
+
+        let user = results[0]
+        database.sendQuery(`SELECT * FROM address WHERE id_user = ${id}`, (err, results) => {
+            if (err) {
+                console.error('error in fetching address', err)
+                return
+            }
+
+            res.json({
+                user,
+                addresses: results
+            })
+        })
+    })
+});
+
+router.post('/:id', function (req, res, next) {
+    let id = req.params.id
+
+    database.sendQuery(`UPDATE users SET firstname='${req.body.user.firstname}', lastname='${req.body.user.lastname}', email='${req.body.user.email}', tel='${req.body.user.tel}' WHERE id = ${id}`, (err, results) => {
+        if (err) {
+            console.log('error in updating user', err)
+            return
+        }
+
+        res.json('Réussi')
+    })
 });
 
 router.post('/', function (req, res, next) {

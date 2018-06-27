@@ -22,13 +22,13 @@
             <div class="illu"></div>
         </div>
         <div class="information">
-            <div>
+            <div class="tel">
                 <img src="" alt="">
-                <p></p>
+                <a href="tel:0155889043">0155889043</a>
             </div>
-            <div>
+            <div class="mail">
                 <img src="" alt="">
-                <p></p>
+                <a href="mailto:contact@lbf.fr">contact@lbf.fr</a>
             </div>
         </div>
     </section>
@@ -160,6 +160,37 @@
                     &:hover {
                         color: white;
                     }
+                }
+            }
+        }
+        .information {
+            width: 100%;
+            color: white;
+            background-color: #5F93BB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 20px;
+            .tel {
+                margin-right: 15px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                a {
+                    text-decoration: none;
+                    color: white;
+                }
+            }
+            .mail {
+                margin-left: 15px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                a {
+                    text-decoration: none;
+                    color: white;
                 }
             }
         }
