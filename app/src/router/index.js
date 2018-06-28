@@ -44,7 +44,7 @@ export default new Router({
             component: account
         },
         {
-            path: '/billing',
+            path: '/cart',
             name: 'billing',
             component: billing
         }

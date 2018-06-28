@@ -1,8 +1,8 @@
 <template>
     <main id="app">
-        <Header v-bind:user="user" v-on:disconnect="disconnect"></Header>
+        <Header :user="user" @disconnect="disconnect"></Header>
         <notifications group="notify" classes="my-notification"></notifications>
-        <router-view v-on:connect="connect" :user="user"/>
+        <router-view @connect="connect" :user="user"/>
         <Footer></Footer>
     </main>
 </template>
