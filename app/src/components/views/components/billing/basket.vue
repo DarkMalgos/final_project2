@@ -66,21 +66,6 @@
             getTaxe(txt, taxe) {
                 this.taxe.price = taxe
                 this.taxe.txt = txt
-                /*switch (taxe) {
-                    case 2:
-                        document.querySelectorAll('.active-taxe')[0].classList.remove('active-taxe')
-                        document.querySelectorAll('.taxe')[0].classList.add('active-taxe')
-                        break
-                    case 3:
-                        document.querySelectorAll('.active-taxe')[0].classList.remove('active-taxe')
-                        document.querySelectorAll('.taxe')[1].classList.add('active-taxe')
-                        break
-                    case 4:
-                        document.querySelectorAll('.active-taxe')[0].classList.remove('active-taxe')
-                        document.querySelectorAll('.taxe')[2].classList.add('active-taxe')
-                        break
-                    default:
-                }*/
                 this.getTotal();
             },
             getUnderTotal(){

@@ -32,7 +32,7 @@
       },
     methods: {
         connection() {
-            this.$http.post('http://localhost:3000/api/users/connexion', {
+            this.$http.post('http://labonnefranquette.ml/api/users/connexion', {
                 user: this.user
             }).then(response => {
                 if (response.data.user) {

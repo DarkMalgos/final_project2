@@ -42,7 +42,7 @@
             this.id = this.$cookies.get('user')
             if (this.id == null)
                 this.$router.push('/')
-            this.$http.get(`http://localhost:3000/api/addresses/${this.id}`)
+            this.$http.get(`http://labonnefranquette.ml/api/addresses/${this.id}`)
                 .then(response => {
                     this.addresses = response.data
                 })
