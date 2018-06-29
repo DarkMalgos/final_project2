@@ -41,7 +41,7 @@
                     </li>
                 </template>
                 <li class="ml-40" id="basket">
-                    <router-link to="/cart"><img src="../../assets/basket.png" alt=""></router-link>
+                    <router-link to="/cart"><img src="../../assets/basket.png" alt=""><span class="after">{{quantity}}</span></router-link>
                 </li>
             </ul>
         </nav>
@@ -52,7 +52,8 @@
     export default {
         name: "Header",
         props: {
-            user: Boolean
+            user: Boolean,
+            quantity: 0
         },
         data() {
             return {
@@ -135,7 +136,7 @@
                                 width: 30px;
                             }
                             position: relative;
-                            &:after {
+                            .after {
                                 content: '0';
                                 font-size: 10px;
                                 position: absolute;
