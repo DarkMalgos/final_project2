@@ -16,7 +16,8 @@
         data() {
             return {
                 address: '',
-                auto_address: ''
+                auto_address: '',
+                bdd_address: {}
             }
         },
         methods: {
@@ -40,6 +41,10 @@
             );
             this.autocomplete.addListener('place_changed', () => {
                 let place = this.autocomplete.getPlace()
+                this.bdd_address.street = place.address_components[0].long_name + ' ' + place.address_components[1].long_name
+                this.bdd_address.city = place.address_components[2].long_name
+                this.bdd_address.zipcode = place.address_components[6].long_name
+                console.log(this.bdd_address)
                 this.address = place.formatted_address
             })
         }

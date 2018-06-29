@@ -7,13 +7,14 @@ const createError =     require('http-errors'),
       dotenv =          require('dotenv').config()
 
 const usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
 const productsRouter = require('./routes/products');
 const addressesRouter = require('./routes/adresses');
 
 const app = express();
 
 // view engine setup
-app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, 'public')));
 //app.set('view engine', 'none');
 
 app.use(logger('dev'));
@@ -49,6 +50,7 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use('/', indexRouter)
 app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/addresses', addressesRouter);
@@ -66,7 +68,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(err);
 });
 
 module.exports = app;

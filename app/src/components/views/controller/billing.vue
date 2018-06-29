@@ -1,5 +1,6 @@
 <template>
     <section id="billing">
+        <notifications group="bill" classes="my-notification"></notifications>
         <div class="steps">
             <div class="step">
                 <p class="number" :class="step == 1 ? 'active' : ''"><span v-if="step==1">1</span><span v-else>✓</span></p>
@@ -15,7 +16,7 @@
             </div>
         </div>
 
-        <component :is="now" @next="nextStep"></component>
+        <component :is="now" @next="nextStep" @choose="choose"></component>
     </section>
 </template>
 
@@ -52,6 +53,13 @@
                         this.now = 'basket'
                         break
                 }
+            },
+            choose() {
+                this.$notify({
+                    group: 'bill',
+                    type: 'error',
+                    title: 'Veuillez choisir une adresse'
+                })
             }
         }
     }

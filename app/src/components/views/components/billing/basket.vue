@@ -102,11 +102,6 @@
                 }), "7d")
             },
             deleteCart(index) {
-                for (let product of this.products) {
-                    if (product.id == this.cart[index].id) {
-                        product.quantity = 1
-                    }
-                }
                 this.cart.splice(index, 1)
                 if (this.cart.length > 0)
                     this.getTotal()
