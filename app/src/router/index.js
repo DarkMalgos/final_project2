@@ -11,7 +11,6 @@ import account from '../components/views/controller/account'
 Vue.use(Router)
 
 export default new Router({
-    mode: 'history',
     routes: [
         {
             path: '/',
