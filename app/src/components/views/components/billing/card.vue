@@ -41,8 +41,6 @@
         mounted() {
             console.log(process.env.DEV_URL)
             this.id = this.$cookies.get('user')
-            if (this.id == null)
-                this.$router.push('/')
             this.$http.get(`${process.env.DEV_URL}/api/addresses/${this.id}`)
                 .then(response => {
                     this.addresses = response.data
@@ -61,11 +59,10 @@
         },
         methods: {
             purchase() {
-                console.log(this.address)
-                if (this.address.street == undefined) {
+                /*if (this.address.street == undefined) {
                     this.$emit('choose')
                     return
-                }
+                }*/
                 let self = this;
 
                 stripe.createToken(card).then(function (result) {
@@ -75,6 +72,15 @@
                         return;
                     }
                     console.log(result.token.id)
+                    self.$http.post(`${process.env.DEV_URL}/api/bill/`, {
+                        user: {
+                            token: result.token.id
+                        }
+                    }).then(response => {
+                        console.log(response.data)
+                    }).catch(e => {
+                        console.error(e)
+                    })
                     // Access the token with result.token
                     self.$emit('next')
                 });
@@ -95,10 +101,12 @@
         margin-bottom: 20px;
         font-size: 1.3rem;
     }
+
     .sections {
         padding: 20px;
         margin: 50px 0;
     }
+
     .section-addresses {
         @extend .sections;
         flex-basis: 70%;
@@ -125,6 +133,7 @@
             }
         }
     }
+
     .card-container {
         width: 100%;
         display: inline-block;
@@ -140,6 +149,7 @@
             }
         }
     }
+
     .add {
         position: absolute;
         bottom: 0px;

@@ -118,6 +118,7 @@
     import {swiper, swiperSlide} from 'vue-awesome-swiper'
     import products from '../components/catalog/products_list'
     import draggable from 'vuedraggable'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name: "catalog",
@@ -173,8 +174,9 @@
             this.autocomplete.addListener('place_changed', () => {
                 let place = this.autocomplete.getPlace()
                 this.address = place.formatted_address
+                this.newAddress(place.formatted_address)
             })
-            this.address = window.location.search.split('=')[1].replace(/%20/g, ' ')
+            this.address = this.getAddress
             this.$http.get(`${process.env.DEV_URL}/api/products/${this.filter}`)
                 .then(response => {
                     for (let product of response.data) {
@@ -187,6 +189,10 @@
             })
         },
         methods: {
+            ...mapActions([
+                'newAddress',
+                'newQuantity'
+            ]),
             drop(evt) {
                 let check = []
                 for (let i = 0; i < this.cart.length; i++) {
@@ -241,7 +247,7 @@
                     cart: this.cart,
                     taxe: this.taxe
                 }), "7d")
-                this.$emit('quantity', this.cart)
+                this.newQuantity(this.cart)
             },
             deleteCart(index) {
                 for (let product of this.products) {
@@ -249,12 +255,15 @@
                         product.quantity = 1
                     }
                 }
+
                 this.cart.splice(index, 1)
                 if (this.cart.length > 0)
                     this.getTotal()
                 else {
                     this.underTotal = 0
                     this.Total = this.taxe.price
+                    this.$cookies.remove('cart')
+                    this.newQuantity(this.cart)
                 }
             },
             removeItem(index) {
@@ -274,6 +283,11 @@
             itemTotal(index) {
                 this.cart[index].total = this.cart[index].quantity * this.cart[index].price
             }
+        },
+        computed: {
+            ...mapGetters([
+                'getAddress',
+            ])
         }
     }
 </script>
