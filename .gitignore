@@ -4,3 +4,4 @@
 node_modules
 lbf_key.pem
 .env
+app/.env

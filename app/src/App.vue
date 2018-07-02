@@ -1,8 +1,8 @@
 <template>
     <main id="app">
-        <Header :user="user" @disconnect="disconnect"></Header>
+        <Header :user="user" :quantity="quantity" @disconnect="disconnect"></Header>
         <notifications group="notify" classes="my-notification"></notifications>
-        <router-view @connect="connect" :user="user"/>
+        <router-view @connect="connect" :user="user" @quantity="quantity"/>
         <Footer></Footer>
     </main>
 </template>
@@ -32,6 +32,12 @@
             },
             disconnect() {
                 this.user = false
+            },
+            quantity(cart) {
+                let quantity = 0
+                for (let product in cart) {
+
+                }
             }
         },
         mounted() {

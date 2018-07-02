@@ -241,6 +241,7 @@
                     cart: this.cart,
                     taxe: this.taxe
                 }), "7d")
+                this.$emit('quantity', this.cart)
             },
             deleteCart(index) {
                 for (let product of this.products) {

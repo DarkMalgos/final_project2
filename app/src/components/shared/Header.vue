@@ -41,7 +41,10 @@
                     </li>
                 </template>
                 <li class="ml-40" id="basket">
-                    <router-link to="/cart"><img src="../../assets/basket.png" alt=""></router-link>
+                    <router-link to="/cart">
+                        <img src="../../assets/basket.png" alt="">
+                        <span class="after">{{quantity}}</span>
+                    </router-link>
                 </li>
             </ul>
         </nav>
@@ -58,6 +61,7 @@
             return {
                 drop: false,
                 nb_items: 0,
+                quantity: 0
             }
         },
         methods: {
@@ -135,8 +139,7 @@
                                 width: 30px;
                             }
                             position: relative;
-                            &:after {
-                                content: '0';
+                            .after {
                                 font-size: 10px;
                                 position: absolute;
                                 width: 15px;
