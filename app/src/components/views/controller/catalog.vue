@@ -175,7 +175,7 @@
                 this.address = place.formatted_address
             })
             this.address = window.location.search.split('=')[1].replace(/%20/g, ' ')
-            this.$http.get(`http://localhost:3000/api/products/${this.filter}`)
+            this.$http.get(`${process.env.DEV_URL}/api/products/${this.filter}`)
                 .then(response => {
                     for (let product of response.data) {
                         product.quantity = 1

@@ -32,7 +32,7 @@
       },
     methods: {
         connection() {
-            this.$http.post('http://localhost:3000/api/users/connexion', {
+            this.$http.post(process.env.DEV_URL + '/api/users/connexion', {
                 user: this.user
             }).then(response => {
                 if (response.data.user) {

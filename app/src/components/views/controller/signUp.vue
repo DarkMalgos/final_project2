@@ -81,7 +81,7 @@
                     this.notMatch = true
                     return
                 }
-                this.$http.post('http://localhost:3000/api/users', {
+                this.$http.post(process.env.DEV_URL + '/api/users', {
                     user: this.user,
                     address: this.address
                 }).then(response => {

@@ -24,9 +24,9 @@
 </template>
 
 <script>
-    let stripe = Stripe(`pk_test_drbg7jopB6SXQwUDddLLkla3`),
+    let stripe = Stripe(`${process.env.STRIPE_KEY}`),
         elements = stripe.elements(),
-        card = undefined;
+        card = undefined
 
     export default {
         name: "card",
@@ -39,10 +39,11 @@
             }
         },
         mounted() {
+            console.log(process.env.DEV_URL)
             this.id = this.$cookies.get('user')
             if (this.id == null)
                 this.$router.push('/')
-            this.$http.get(`http://localhost:3000/api/addresses/${this.id}`)
+            this.$http.get(`${process.env.DEV_URL}/api/addresses/${this.id}`)
                 .then(response => {
                     this.addresses = response.data
                 })

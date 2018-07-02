@@ -70,7 +70,7 @@
             this.id = this.$cookies.get('user')
             if (this.id == null)
                 this.$router.push('/')
-            this.$http.get(`http://localhost:3000/api/users/${this.id}`)
+            this.$http.get(`${process.env.DEV_URL}/api/users/${this.id}`)
                 .then(response => {
                     console.log(response.data)
                     this.user = response.data.user
@@ -82,7 +82,7 @@
         },
         methods: {
             updateUser(){
-                this.$http.post(`http://localhost:3000/api/users/update/${this.id}`, {
+                this.$http.post(`${process.env.DEV_URL}/api/users/update/${this.id}`, {
                     user: this.user
                 }).then(response => {
                     if (response.data == 'Réussi')
