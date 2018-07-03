@@ -82,11 +82,7 @@
         },
         methods: {
             updateUser(){
-<<<<<<< HEAD
-                this.$http.post(`http://labonnefranquette.ml/api/users/update/${this.id}`, {
-=======
                 this.$http.post(`${process.env.DEV_URL}/api/users/update/${this.id}`, {
->>>>>>> 0b978ebb10d7809b2011bcbe512b6182cbdfff7f
                     user: this.user
                 }).then(response => {
                     if (response.data == 'Réussi')
