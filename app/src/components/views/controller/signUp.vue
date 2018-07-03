@@ -81,7 +81,7 @@
                     this.notMatch = true
                     return
                 }
-                this.$http.post('http://labonnefranquette.ml/api/users', {
+                this.$http.post(process.env.PROD_URL + '/api/users', {
                     user: this.user,
                     address: this.address
                 }).then(response => {

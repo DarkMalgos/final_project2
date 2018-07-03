@@ -70,7 +70,7 @@
             this.id = this.$cookies.get('user')
             if (this.id == null)
                 this.$router.push('/')
-            this.$http.get(`http://loabonnefranquette.ml/api/users/${this.id}`)
+            this.$http.get(`${process.env.PROD_URL}/api/users/${this.id}`)
                 .then(response => {
                     console.log(response.data)
                     this.user = response.data.user
@@ -82,7 +82,11 @@
         },
         methods: {
             updateUser(){
+<<<<<<< HEAD
                 this.$http.post(`http://labonnefranquette.ml/api/users/update/${this.id}`, {
+=======
+                this.$http.post(`${process.env.DEV_URL}/api/users/update/${this.id}`, {
+>>>>>>> 0b978ebb10d7809b2011bcbe512b6182cbdfff7f
                     user: this.user
                 }).then(response => {
                     if (response.data == 'Réussi')

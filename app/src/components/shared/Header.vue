@@ -14,7 +14,7 @@
                     </ul>
                 </li>
                 <li class="ml-40">
-                    <router-link to="">Commander</router-link>
+                    <router-link to="/order">Commander</router-link>
                 </li>
                 <li class="ml-40">
                     <router-link to="/contact">Contact</router-link>
@@ -41,7 +41,10 @@
                     </li>
                 </template>
                 <li class="ml-40" id="basket">
-                    <router-link to="/cart"><img src="../../assets/basket.png" alt=""><span class="after">{{quantity}}</span></router-link>
+                    <router-link to="/cart">
+                        <img src="../../assets/basket.png" alt="">
+                        <span class="after">{{quantity}}</span>
+                    </router-link>
                 </li>
             </ul>
         </nav>
@@ -49,6 +52,8 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex'
+
     export default {
         name: "Header",
         props: {
@@ -59,14 +64,18 @@
             return {
                 drop: false,
                 nb_items: 0,
+                quantity: NaN
+            }
+        },
+        watch: {
+            getQuantity: function (val) {
+                this.quantity = val
             }
         },
         methods: {
             scrollInto(ancre) {
                 if (window.location.pathname != '/') {
-                    let link = document.createElement('a')
-                    ancre != '#ship' ? link.setAttribute('href', `/${ancre}`) : link.setAttribute('href', `/`)
-                    link.click()
+                    ancre != '#ship' ? this.$router.push(`/${ancre}`) : this.$router.push(`/`)
                 } else {
                     document.querySelector(ancre).scrollIntoView({
                         behavior: 'smooth'
@@ -81,14 +90,12 @@
             }
         },
         mounted() {
-            let cookie = this.$cookies.get('cart')
-            if (cookie != null) {
-                cookie = JSON.parse(cookie)
-                let quantity = 0
-                for (let item of cookie.cart) {
-                    quantity += item.quantity
-                }
-            }
+            this.quantity = this.getQuantity
+        },
+        computed: {
+            ...mapGetters([
+                'getQuantity'
+            ])
         }
     }
 </script>
@@ -137,7 +144,6 @@
                             }
                             position: relative;
                             .after {
-                                content: '0';
                                 font-size: 10px;
                                 position: absolute;
                                 width: 15px;
