@@ -3,11 +3,20 @@ const express = require('express'),
     router = express.Router(),
     stripe = require("stripe")(`${process.env.STRIPE_KEY}`);
 
-router.post('/', function (req, res, next) {
-    console.log('toto')
+const database = require('../services/database.js');
+
+router.post('/:id', function (req, res, next) {
+    let id =
     //todo: recalculer le prix ici
 
     //todo: récuperer les info utilisateur + check si customer id
+    database.sendQuery(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
+        if (err) {
+            console.log('error in fetching product', err)
+            return
+        }
+        console.log(results)
+    })
     stripe.customers.create({
         description: 'create toto'
     }).then((customer) => {
