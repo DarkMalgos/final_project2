@@ -5,9 +5,13 @@ const express = require('express'),
 
 router.post('/', function (req, res, next) {
     console.log('toto')
+    //todo: recalculer le prix ici
+
+    //todo: récuperer les info utilisateur + check si customer id
     stripe.customers.create({
         description: 'create toto'
     }).then((customer) => {
+        // todo : send en base le customer id
         return stripe.customers.createSource(customer.id, {
             source: req.body.user.token
         })
