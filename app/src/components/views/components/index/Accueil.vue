@@ -114,6 +114,7 @@
                     box-shadow: none;
                     border-bottom-right-radius: 3px;
                     border-top-right-radius: 3px;
+                    cursor: pointer;
                     img {
                         height: 80%;
                         width: auto;

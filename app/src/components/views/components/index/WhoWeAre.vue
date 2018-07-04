@@ -2,41 +2,47 @@
     <section id="who-we-are">
         <div class="container">
             <h2>Qui sommes-nous ?</h2>
-            <p class="presentation">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolore eligendi impedit ipsam porro rem repudiandae tempora tempore veniam voluptates!</p>
+            <p class="presentation">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolore eligendi
+                impedit ipsam porro rem repudiandae tempora tempore veniam voluptates!</p>
             <h3>La team</h3>
             <div class="body-container">
                 <div>
-                    <div class="circle">
-                        <img src="../../../../assets/team.jpg" alt="">
+                    <div class="people">
+                        <div class="circle">
+                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
                         <p>Jean Patry</p>
-                        <p>Co-founder</p>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        <p>Chef</p>
                     </div>
-                    <div class="circle">
-                        <img src="../../../../assets/team.jpg" alt="">
+                    <div class="people">
+                        <div class="circle">
+                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
                         <p>Jean Patry</p>
-                        <p>CTO</p>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        <p>Chef</p>
                     </div>
-                    <div class="circle">
-                        <img src="../../../../assets/team.jpg" alt="">
+                    <div class="people">
+                        <div class="circle">
+                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
                         <p>Jean Patry</p>
-                        <p>Marketeur</p>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        <p>Chef</p>
                     </div>
                 </div>
                 <div>
-                    <div class="circle">
-                        <img src="../../../../assets/team.jpg" alt="">
-                        <p>Jean Patry</p>
-                        <p>Designer</p>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    </div>
-                    <div class="circle">
-                        <img src="../../../../assets/team.jpg" alt="">
+                    <div class="people">
+                        <div class="circle">
+                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
                         <p>Jean Patry</p>
                         <p>Chef</p>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="people">
+                        <div class="circle">
+                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                        <p>Jean Patry</p>
+                        <p>Chef</p>
                     </div>
                 </div>
             </div>
@@ -68,7 +74,6 @@
             }
             h3 {
                 margin-bottom: 20px;
-                word-spacing: -7px;
             }
         }
         .body-container {
@@ -83,54 +88,52 @@
                 justify-content: center;
                 align-items: center;
                 width: 100%;
-                .circle {
+                &:last-of-type {
+                    margin-top: 20px;
+                }
+                .people {
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
                     align-items: center;
-                    position: relative;
-                    width: 130px;
-                    img {
-                        width: 100%;
-                        border-radius: 50%;
-                        margin-bottom: 10px;
+                    justify-content: center;
+                    height: auto;
+                    width: auto;
+                    &:not(:last-of-type) {
+                        margin-right: 120px;
                     }
-                    .description {
-                        visibility: hidden;
-                        position: absolute;
-                        background-color: rgba(95, 147, 187, .7);
-                        top: 0;
-                        color: white;
-                        width: 100%;
-                        height: 82%;
+                    .circle {
                         display: flex;
+                        flex-direction: column;
                         justify-content: center;
                         align-items: center;
-                        transition: all ease 1s;
+                        position: relative;
+                        width: 130px;
+                        height: 130px;
+                        background: url("../../../../assets/team.jpg") no-repeat center;
                         border-radius: 50%;
-                        text-align: center;
-                    }
-                    &:hover {
+                        background-size: cover;
                         .description {
-                            visibility: visible;
+                             visibility: hidden;
+                             position: absolute;
+                             background-color: rgba(95, 147, 187, .7);
+                             top: 0;
+                             color: white;
+                             width: 100%;
+                             height: 100%;
+                             display: flex;
+                             justify-content: center;
+                             align-items: center;
+                             transition: all ease .2s;
+                             border-radius: 50%;
+                             text-align: center;
+                         }
+                        &:hover {
+                            .description {
+                                visibility: visible;
+                            }
                         }
-                    }
-                    &:not(:first-of-type) {
-                        margin-left: 20%;
-                    }
-                }
-                &:last-child {
-                    margin-top: 30px;
-                    .circle {
-                        margin-top: 0;
-                        img, .description {
-                            width: 100%;
-                        }
-                        &:nth-of-type(1) {
-                            margin-right: 10%;
-                        }
-                        &:nth-of-type(2) {
-                            margin-left: 10%;
+                        &:not(:first-of-type) {
+                            margin-left: 20%;
                         }
                     }
                 }

@@ -1,7 +1,7 @@
 <template>
     <draggable v-model="products" :options="{group:{name:'product', pull: 'clone', put: false }}" class="products" @end="onAdd">
         <div v-for="product in products" class="product">
-            <img src="../../../../assets/connexion.jpg" alt="">
+            <img :src="product.path" :alt="product.name">
             <div class="info">
                 <h3>{{product.name}}</h3>
                 <p>{{product.ingredients}}</p>
@@ -44,7 +44,6 @@
         flex-wrap: wrap;
         justify-content: space-around;
         align-items: center;
-        background: white;
         border-radius: 3px;
         width: 70%;
         min-height: 150px;
@@ -68,7 +67,7 @@
             flex-direction: column;
             justify-content: space-between;
             padding: 3%;
-            background: #fbfbfb;
+            background: white;
             border-bottom-left-radius: 5px;
             border-bottom-right-radius: 5px;
             h3 {

@@ -131,6 +131,7 @@
         padding:20px;
         margin-top: 40px;
         margin-bottom: 40px;
+        box-shadow: 1px 2px 10px 0px rgba(106, 146, 183, .2);
         h2,
         p {
             margin-left: 10px;
@@ -160,7 +161,7 @@
                 justify-content: space-between;
                 background-color: #FBFBFB;
                 margin-bottom: 20px;
-                box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
+                box-shadow: 0px 2px 4px 0px rgba(106, 146, 183, .2);
                 .delete {
                     align-self: flex-end;
                     border: none;

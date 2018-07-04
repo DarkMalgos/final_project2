@@ -1,5 +1,6 @@
 <template>
     <section id="catalog">
+        <notifications group="catalog"></notifications>
         <div class="swiper-zone">
             <swiper :options="swiperOption">
                 <swiper-slide>
@@ -50,19 +51,19 @@
         </div>
         <section class="container">
             <header class="header-product">
-                <div class="sandwich filter" @click="getFilter('sandwich')">
+                <div class="sandwich" :class="{filter:filter=='Sandwich'}" @click="getFilter('Sandwich')">
                     <p>Sandwich</p>
                 </div>
-                <div class="plats" @click="getFilter('plats')">
+                <div class="plats" :class="{filter:filter=='Plats'}" @click="getFilter('Plats')">
                     <p>Plat</p>
                 </div>
-                <div class="dessert" @click="getFilter('déssert')">
+                <div class="dessert" :class="{filter:filter=='Dessert'}" @click="getFilter('Dessert')">
                     <p>Dessert</p>
                 </div>
-                <div class="planche" @click="getFilter('planche')">
+                <div class="planche" :class="{filter:filter=='Planche'}" @click="getFilter('Planche')">
                     <p>Planche</p>
                 </div>
-                <div class="vin" @click="getFilter('vin')">
+                <div class="vin" :class="{filter:filter=='Vin'}" @click="getFilter('Vin')">
                     <p>Vin</p>
                 </div>
             </header>
@@ -101,7 +102,7 @@
                             <p>Total</p>
                             <p>{{Total}} €</p>
                         </div>
-                        <router-link to="/cart" tag="button" class="button">Valider</router-link>
+                        <button @click="goCart"  class="button">Valider</button>
                     </div>
                 </div>
             </div>
@@ -132,6 +133,7 @@
             return {
                 filter: 'Sandwich',
                 products: [],
+                allproducts: [],
                 cart: [],
                 swiperOption: {
                     slidesPerView: 1,
@@ -177,13 +179,14 @@
                 this.newAddress(place.formatted_address)
             })
             this.address = this.getAddress
-            this.$http.get(`${process.env.DEV_URL}/api/products/${this.filter}`)
+            this.$http.get(`${process.env.DEV_URL}/api/products/`)
                 .then(response => {
                     for (let product of response.data) {
                         product.quantity = 1
                         product.total = product.price
                     }
-                    this.products = response.data
+                    this.allproducts = response.data
+                    this.products = this.allproducts.filter(product => product.category == this.filter)
                 }).catch(e => {
                 console.error(e)
             })
@@ -258,7 +261,7 @@
 
                 this.cart.splice(index, 1)
                 if (this.cart.length > 0)
-                    this.getTotal()
+                    this.getUnderTotal()
                 else {
                     this.underTotal = 0
                     this.Total = this.taxe.price
@@ -282,6 +285,19 @@
             },
             itemTotal(index) {
                 this.cart[index].total = this.cart[index].quantity * this.cart[index].price
+            },
+            getFilter(filter) {
+                this.filter = filter
+                this.products = this.allproducts.filter(product => product.category == this.filter)
+            },
+            goCart() {
+                if (this.getAddress == '') {
+                    this.$notify({
+                        group: 'catalog',
+                        type: 'error',
+                        title: 'Veuillez entrer une adresse'
+                    })
+                }
             }
         },
         computed: {
@@ -496,7 +512,7 @@
                 width: 25%;
                 padding-top: 20px;
                 padding-bottom: 20px;
-                box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, .5);
+                box-shadow: 1px 2px 10px 0px rgba(106, 146, 183, .2);
                 h2,
                 p {
                     margin-left: 10px;
@@ -523,7 +539,7 @@
                         justify-content: space-between;
                         background-color: #FBFBFB;
                         margin-bottom: 20px;
-                        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
+                        box-shadow: 0px 2px 4px 0px rgba(106, 146, 183, .2);
                         .delete {
                             align-self: flex-end;
                             border: none;

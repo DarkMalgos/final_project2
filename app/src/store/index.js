@@ -11,7 +11,6 @@ const state = {
     },
     mutations = {
         setAddress(state, payload) {
-            console.log(payload)
             state.address = payload
         },
         setToken(state, payload) {
@@ -26,7 +25,6 @@ const state = {
                 quantity += parseInt(item.quantity)
             }
             state.quantity = quantity
-            console.log('total quantity', state.quantity)
         }
     },
     getters = {
