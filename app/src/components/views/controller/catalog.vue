@@ -23,7 +23,7 @@
                 </div>
                 <div class="triangle"></div>
             </div>
-            <input ref="autocomplete" type="text" v-model="address">
+            <input id="loc" ref="autocomplete" type="text" v-model="address">
             <div class="loop"><img src="../../../assets/search.png" alt=""></div>
             <div class="order-taxe">
                 <div class="taxe" @click="getTaxe('30/40 mins', 2)">
@@ -175,10 +175,14 @@
             );
             this.autocomplete.addListener('place_changed', () => {
                 let place = this.autocomplete.getPlace()
+                this.bdd_address.street = place.address_components[0].long_name + ' ' + place.address_components[1].long_name
+                this.bdd_address.city = place.address_components[2].long_name
+                this.bdd_address.zipcode = place.address_components[6].long_name
+                this.bdd_address.all = place.formatted_address
                 this.address = place.formatted_address
-                this.newAddress(place.formatted_address)
+                this.newAddress(this.bdd_address)
             })
-            this.address = this.getAddress
+            this.address = this.getAddress.all
             this.$http.get(`${process.env.DEV_URL}/api/products/`)
                 .then(response => {
                     for (let product of response.data) {
@@ -297,6 +301,12 @@
                         type: 'error',
                         title: 'Veuillez entrer une adresse'
                     })
+                    document.querySelector('#loc').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    document.querySelector('#loc').focus()
+                } else {
+                    this.$router.push('/cart')
                 }
             }
         },
@@ -309,6 +319,9 @@
 </script>
 
 <style lang="scss" scoped>
+    #loc:focus {
+        outline-color: #e45353;
+    }
     #catalog {
         position: relative;
         margin-top: 10vh;
@@ -420,6 +433,7 @@
                     justify-content: space-between;
                     border-radius: 3px;
                     transition: all ease .2s;
+                    cursor: pointer;
                     div {
                         height: 100%;
                         width: 50px;

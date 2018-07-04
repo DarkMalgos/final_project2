@@ -16,6 +16,19 @@ router.get('/:id', function (req, res, next) {
     })
 })
 
+router.post('/:id', function (req, res, next) {
+    let id = req.params.id
+
+    database.sendQuery(`INSERT INTO address (street, city, zipcode, id_user) VALUES ('${req.body.address.street}', '${req.body.address.city}', '${req.body.address.zipcode}', ${id})`, (err, results) => {
+        if (err) {
+            console.error('error in fetching address', err)
+            return
+        }
+
+        res.json(results)
+    })
+})
+
 router.delete('/:id', function (req, res, next) {
     let id = req.params.id
 

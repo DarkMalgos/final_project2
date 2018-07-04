@@ -1,57 +1,66 @@
 <template>
-  <section id="signin">
-    <form @submit.prevent="connection" class="form-container">
-        <notifications group="erlog" classes="my-notification"></notifications>
-        <div class="control">
-            <input id="email" type="email" placeholder="Email" v-model="user.email" required>
-            <label for="email">Email</label>
-        </div>
-        <div class="control">
-            <input id="password" type="password" placeholder="Mot de passe" v-model="user.password" required>
-            <label for="password">Mot de passe</label>
-        </div>
-      <input type="submit" class="button">
-    </form>
-      <div class="illu"></div>
-  </section>
+    <section id="signin">
+        <form @submit.prevent="connection" class="form-container">
+            <notifications group="erlog" classes="my-notification"></notifications>
+            <div class="control">
+                <input id="email" type="email" placeholder="Email" v-model="user.email" required>
+                <label for="email">Email</label>
+            </div>
+            <div class="control">
+                <input id="password" type="password" placeholder="Mot de passe" v-model="user.password" required>
+                <label for="password">Mot de passe</label>
+            </div>
+            <input type="submit" class="button">
+        </form>
+        <div class="illu"></div>
+    </section>
 </template>
 
 <script>
+    import {mapActions} from 'vuex'
 
-  export default {
-    name: "signIn",
-      data() {
-        return {
-            user: {
-                email: '',
-                password: ''
-            },
-            error: '',
-            errCo: false
-        }
-      },
-    methods: {
-        connection() {
-            this.$http.post(process.env.DEV_URL + '/api/users/connexion', {
-                user: this.user
-            }).then(response => {
-                if (response.data.user) {
-                    this.$emit('connect', response.data.user);
-                    this.$router.push('/')
-                } else {
-                    this.error = response.data
-                    this.errCo = true
-                    this.$notify({
-                        group: 'erlog',
-                        type: 'error',
-                        title: 'Erreur de connexion',
-                        text: response.data
-                    });
-                }
-            })
+    export default {
+        name: "signIn",
+        data() {
+            return {
+                user: {
+                    email: '',
+                    password: ''
+                },
+                error: '',
+                errCo: false
+            }
+        },
+        methods: {
+            ...mapActions([
+                'newStep'
+            ]),
+            connection() {
+                this.$http.post(process.env.DEV_URL + '/api/users/connexion', {
+                    user: this.user
+                }).then(response => {
+                    if (response.data.user) {
+                        this.$emit('connect', response.data.user);
+                        if (window.location.search) {
+                            this.newStep(2)
+                            this.$router.push('/cart')
+                        } else {
+                            this.$router.push('/')
+                        }
+                    } else {
+                        this.error = response.data
+                        this.errCo = true
+                        this.$notify({
+                            group: 'erlog',
+                            type: 'error',
+                            title: 'Erreur de connexion',
+                            text: response.data
+                        });
+                    }
+                })
+            }
         }
     }
-  }
 </script>
 
 <style lang="scss" scoped>
@@ -147,6 +156,7 @@
             }
         }
     }
+
     .illu {
         height: 100%;
         width: 30%;

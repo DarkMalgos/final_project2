@@ -34,12 +34,18 @@
             </div>
             <button @click="nextStep" class="button">Valider</button>
         </div>
+        <modal v-if="showModal"></modal>
     </section>
 </template>
 
 <script>
+    import modal from './notUser'
+
     export default {
         name: "basket",
+        components: {
+            modal
+        },
         data() {
             return{
                 cart: [],
@@ -48,7 +54,8 @@
                     price: 4,
                     txt: '< 15 mins'
                 },
-                underTotal: 0
+                underTotal: 0,
+                showModal: false
             }
         },
         mounted() {
@@ -113,7 +120,12 @@
                 this.cart[index].total = this.cart[index].quantity * this.cart[index].price
             },
             nextStep() {
-                this.$emit('next')
+                let user = this.$cookies.get('user')
+                if (user == null) {
+                    this.showModal = true
+                } else {
+                    this.$emit('next')
+                }
             }
         }
     }
@@ -132,6 +144,19 @@
         margin-top: 40px;
         margin-bottom: 40px;
         box-shadow: 1px 2px 10px 0px rgba(106, 146, 183, .2);
+        .modal-enter {
+            opacity: 0;
+        }
+
+        .modal-leave-active {
+            opacity: 0;
+        }
+
+        .modal-enter .modal-container,
+        .modal-leave-active .modal-container {
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+        }
         h2,
         p {
             margin-left: 10px;
