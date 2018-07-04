@@ -6,10 +6,7 @@ const express = require('express'),
 const database = require('../services/database.js');
 
 router.post('/:id', function (req, res, next) {
-    let id =
-    //todo: recalculer le prix ici
-
-    //todo: récuperer les info utilisateur + check si customer id
+    let id = req.params.id
     database.sendQuery(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
         if (err) {
             console.log('error in fetching product', err)
@@ -20,7 +17,13 @@ router.post('/:id', function (req, res, next) {
     stripe.customers.create({
         description: 'create toto'
     }).then((customer) => {
-        // todo : send en base le customer id
+        database.sendQuery(`UPDATE users SET stripe_id = ${customer.id} WHERE id = ${id}`, (err, results) => {
+            if (err) {
+                console.log('error in updating user', err)
+                return
+            }
+            console.log(results)
+        })
         return stripe.customers.createSource(customer.id, {
             source: req.body.user.token
         })

@@ -71,7 +71,6 @@
                 'newAddress'
             ]),
             purchase() {
-                console.log(this.address)
                 if (this.address.street == undefined) {
                     this.$emit('choose')
                     return
@@ -103,15 +102,6 @@
                         self.newAddress(self.address)
                         self.$emit('next')
                     }
-                    /*self.$http.post(`${process.env.DEV_URL}/api/bill/`, {
-                        user: {
-                            token: result.token.id
-                        }
-                    }).then(response => {
-                        console.log(response.data)
-                    }).catch(e => {
-                        console.error(e)
-                    })*/
                     // Access the token with result.token
 
                 });
@@ -124,7 +114,6 @@
                     this.select = NaN
                     this.address= {}
                 }
-                console.log(this.address)
             }
         },
         computed: {

@@ -1,9 +1,7 @@
 <template>
     <section class="basket">
         <h2>Votre Panier</h2>
-        <p v-if="cart.length>0">Glissez et déposez vos choix ici pour les ajouter</p>
         <div class="cart-products">
-            <p class="flash" v-if="cart.length==0">Glissez et déposez vos choix ici pour les ajouter</p>
             <div v-for="(product, index) in cart" :key="index" class="cart-item">
                 <button class="delete" @click="deleteCart(index)">X</button>
                 <div>
@@ -80,7 +78,6 @@
                 for (let item of this.cart) {
                     calc += item.total
                 }
-                console.log(calc)
                 this.underTotal = calc
                 this.getTotal()
             },
