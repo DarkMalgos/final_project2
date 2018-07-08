@@ -77,6 +77,7 @@
                 'newQuantity'
             ]),
             scrollInto(ancre) {
+                console.log(window.location.pathname)
                 if (window.location.pathname != '/') {
                     if (ancre != '#ship')
                         this.$router.push(`/${ancre}`)
