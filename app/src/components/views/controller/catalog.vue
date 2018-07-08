@@ -1,5 +1,6 @@
 <template>
     <section id="catalog">
+        <notifications group="catalog"></notifications>
         <div class="swiper-zone">
             <swiper :options="swiperOption">
                 <swiper-slide>
@@ -22,7 +23,7 @@
                 </div>
                 <div class="triangle"></div>
             </div>
-            <input ref="autocomplete" type="text" v-model="address">
+            <input id="loc" ref="autocomplete" type="text" v-model="address">
             <div class="loop"><img src="../../../assets/search.png" alt=""></div>
             <div class="order-taxe">
                 <div class="taxe" @click="getTaxe('30/40 mins', 2)">
@@ -50,19 +51,19 @@
         </div>
         <section class="container">
             <header class="header-product">
-                <div class="sandwich filter" @click="getFilter('sandwich')">
+                <div class="sandwich" :class="{filter:filter=='Sandwich'}" @click="getFilter('Sandwich')">
                     <p>Sandwich</p>
                 </div>
-                <div class="plats" @click="getFilter('plats')">
+                <div class="plats" :class="{filter:filter=='Plats'}" @click="getFilter('Plats')">
                     <p>Plat</p>
                 </div>
-                <div class="dessert" @click="getFilter('déssert')">
+                <div class="dessert" :class="{filter:filter=='Dessert'}" @click="getFilter('Dessert')">
                     <p>Dessert</p>
                 </div>
-                <div class="planche" @click="getFilter('planche')">
+                <div class="planche" :class="{filter:filter=='Planche'}" @click="getFilter('Planche')">
                     <p>Planche</p>
                 </div>
-                <div class="vin" @click="getFilter('vin')">
+                <div class="vin" :class="{filter:filter=='Vin'}" @click="getFilter('Vin')">
                     <p>Vin</p>
                 </div>
             </header>
@@ -101,7 +102,7 @@
                             <p>Total</p>
                             <p>{{Total}} €</p>
                         </div>
-                        <router-link to="/cart" tag="button" class="button">Valider</router-link>
+                        <button @click="goCart"  class="button">Valider</button>
                     </div>
                 </div>
             </div>
@@ -132,6 +133,7 @@
             return {
                 filter: 'Sandwich',
                 products: [],
+                allproducts: [],
                 cart: [],
                 swiperOption: {
                     slidesPerView: 1,
@@ -173,17 +175,22 @@
             );
             this.autocomplete.addListener('place_changed', () => {
                 let place = this.autocomplete.getPlace()
+                this.bdd_address.street = place.address_components[0].long_name + ' ' + place.address_components[1].long_name
+                this.bdd_address.city = place.address_components[2].long_name
+                this.bdd_address.zipcode = place.address_components[6].long_name
+                this.bdd_address.all = place.formatted_address
                 this.address = place.formatted_address
-                this.newAddress(place.formatted_address)
+                this.newAddress(this.bdd_address)
             })
-            this.address = this.getAddress
-            this.$http.get(`${process.env.PROD_URL}/api/products/${this.filter}`)
+            this.address = this.getAddress.all
+            this.$http.get(`${process.env.PROD_URL}/api/products/`)
                 .then(response => {
                     for (let product of response.data) {
                         product.quantity = 1
                         product.total = product.price
                     }
-                    this.products = response.data
+                    this.allproducts = response.data
+                    this.products = this.allproducts.filter(product => product.category == this.filter)
                 }).catch(e => {
                 console.error(e)
             })
@@ -258,7 +265,7 @@
 
                 this.cart.splice(index, 1)
                 if (this.cart.length > 0)
-                    this.getTotal()
+                    this.getUnderTotal()
                 else {
                     this.underTotal = 0
                     this.Total = this.taxe.price
@@ -282,6 +289,25 @@
             },
             itemTotal(index) {
                 this.cart[index].total = this.cart[index].quantity * this.cart[index].price
+            },
+            getFilter(filter) {
+                this.filter = filter
+                this.products = this.allproducts.filter(product => product.category == this.filter)
+            },
+            goCart() {
+                if (this.getAddress == '') {
+                    this.$notify({
+                        group: 'catalog',
+                        type: 'error',
+                        title: 'Veuillez entrer une adresse'
+                    })
+                    document.querySelector('#loc').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    document.querySelector('#loc').focus()
+                } else {
+                    this.$router.push('/cart')
+                }
             }
         },
         computed: {
@@ -293,6 +319,9 @@
 </script>
 
 <style lang="scss" scoped>
+    #loc:focus {
+        outline-color: #e45353;
+    }
     #catalog {
         position: relative;
         margin-top: 10vh;
@@ -404,6 +433,7 @@
                     justify-content: space-between;
                     border-radius: 3px;
                     transition: all ease .2s;
+                    cursor: pointer;
                     div {
                         height: 100%;
                         width: 50px;
@@ -496,7 +526,7 @@
                 width: 25%;
                 padding-top: 20px;
                 padding-bottom: 20px;
-                box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, .5);
+                box-shadow: 1px 2px 10px 0px rgba(106, 146, 183, .2);
                 h2,
                 p {
                     margin-left: 10px;
@@ -523,7 +553,7 @@
                         justify-content: space-between;
                         background-color: #FBFBFB;
                         margin-bottom: 20px;
-                        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
+                        box-shadow: 0px 2px 4px 0px rgba(106, 146, 183, .2);
                         .delete {
                             align-self: flex-end;
                             border: none;

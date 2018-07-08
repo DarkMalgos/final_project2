@@ -23,18 +23,27 @@
 <script>
     import basket from '../components/billing/basket'
     import card from '../components/billing/card'
+    import resume from '../components/billing/resume'
+    import {mapGetters} from 'vuex'
 
     export default {
         name: "billing",
         components: {
             basket,
-            card
+            card,
+            resume
         },
         data() {
             return{
                 step: 1,
                 now: 'basket'
             }
+        },
+        mounted() {
+          if (this.getStep != '') {
+              this.step = 2
+              this.now = 'card'
+          }
         },
         methods: {
             nextStep() {
@@ -47,7 +56,7 @@
                         this.now = 'card'
                         break
                     case 3:
-                        this.now = 'info'
+                        this.now = 'resume'
                         break
                     default:
                         this.now = 'basket'
@@ -61,6 +70,11 @@
                     title: 'Veuillez choisir une adresse'
                 })
             }
+        },
+        computed: {
+            ...mapGetters([
+                'getStep'
+            ])
         }
     }
 </script>
@@ -74,6 +88,7 @@
         margin-top: 8%;
         display: flex;
         flex-direction: column;
+        align-items: center;
         .steps {
             width: 100%;
             display: flex;

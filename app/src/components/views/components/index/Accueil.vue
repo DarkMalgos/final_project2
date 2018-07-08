@@ -50,14 +50,15 @@
                     language: 'fr'
                 }
             );
-            this.address = this.getAddress
+            this.address = this.getAddress.all
             this.autocomplete.addListener('place_changed', () => {
                 let place = this.autocomplete.getPlace()
                 this.bdd_address.street = place.address_components[0].long_name + ' ' + place.address_components[1].long_name
                 this.bdd_address.city = place.address_components[2].long_name
                 this.bdd_address.zipcode = place.address_components[6].long_name
+                this.bdd_address.all = place.formatted_address
                 this.address = place.formatted_address
-                this.newAddress(place.formatted_address)
+                this.newAddress(this.bdd_address)
             })
         }
     }
@@ -114,6 +115,7 @@
                     box-shadow: none;
                     border-bottom-right-radius: 3px;
                     border-top-right-radius: 3px;
+                    cursor: pointer;
                     img {
                         height: 80%;
                         width: auto;

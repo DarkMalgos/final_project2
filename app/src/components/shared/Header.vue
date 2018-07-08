@@ -20,7 +20,7 @@
                     <router-link to="/contact">Contact</router-link>
                 </li>
             </ul>
-            <a @click="scrollInto('#ship')" id="logo" class="ml-60">
+            <a @click="scrollInto('#ship')" class="logo ml-60">
                 <img src="../../assets/logo2.png" alt="">
             </a>
             <ul class="ml-60">
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name: "Header",
@@ -73,6 +73,9 @@
             }
         },
         methods: {
+            ...mapActions([
+                'newQuantity'
+            ]),
             scrollInto(ancre) {
                 if (window.location.pathname != '/') {
                     ancre != '#ship' ? this.$router.push(`/${ancre}`) : this.$router.push(`/`)
@@ -90,6 +93,11 @@
             }
         },
         mounted() {
+            let cart = this.$cookies.get('cart')
+            if (cart != null) {
+                cart = JSON.parse(cart)
+                this.newQuantity(cart.cart)
+            }
             this.quantity = this.getQuantity
         },
         computed: {
@@ -118,7 +126,7 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            #logo img {
+            .logo img {
                 cursor: pointer;
                 margin-top: 10px;
                 width: 145px;

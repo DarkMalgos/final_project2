@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="section">
         <section class="section-addresses">
             <h2>Vos adresses</h2>
             <div class="container-cards">
@@ -8,7 +8,7 @@
                     <p>{{card.street}}</p>
                     <p>{{card.zipcode}} </p>
                     <p>{{card.city}}</p>
-                    <span v-if="select==index" @click="deleteCard(index)" class="delete"></span>
+                    <span v-if="select==index" class="check"></span>
                 </div>
                 <div class="card">
                     <p>Ajouter une nouvelle adresse</p>
@@ -18,12 +18,14 @@
         </section>
         <div class="card-container">
             <div ref="card"></div>
-            <button v-on:click="purchase" class="button">Valider</button>
+            <button v-on:click="purchase" class="button">Payer</button>
         </div>
     </section>
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex'
+
     let stripe = Stripe(`${process.env.STRIPE_KEY}`),
         elements = stripe.elements(),
         card = undefined
@@ -39,12 +41,18 @@
             }
         },
         mounted() {
+            if (this.getAddress != '')
+                this.addresses.push(this.getAddress)
             this.id = this.$cookies.get('user')
             /*if (this.id == null)
                 this.$router.push('/')*/
             this.$http.get(`${process.env.PROD_URL}/api/addresses/${this.id}`)
                 .then(response => {
-                    this.addresses = response.data
+                    for (let product of response.data) {
+                        this.addresses.push(product)
+                    }
+                    if (this.getAddress == '')
+                        this.address = response.data[0]
                 })
                 .catch(e => {
                     console.error(e)
@@ -59,11 +67,15 @@
             card.mount(this.$refs.card);
         },
         methods: {
+            ...mapActions([
+                'newToken',
+                'newAddress'
+            ]),
             purchase() {
-                /*if (this.address.street == undefined) {
+                if (this.address.street == undefined) {
                     this.$emit('choose')
                     return
-                }*/
+                }
                 let self = this;
 
                 stripe.createToken(card).then(function (result) {
@@ -72,27 +84,43 @@
                         self.$forceUpdate(); // Forcing the DOM to update so the Stripe Element can update.
                         return;
                     }
-                    console.log(result.token.id)
-                    self.$http.post(`${process.env.DEV_URL}/api/bill/`, {
-                        user: {
-                            token: result.token.id
+                    self.newToken(result.token.id)
+                    if (self.getAddress != '') {
+                        if (self.getAddress.street == self.address.street) {
+                            self.$http.post(`${process.env.PROD_URL}/api/addresses/${self.id}`, {
+                                address: self.address
+                            }).then(response => {
+                                if (response.data == 'ok')
+                                    self.$emit('next')
+                            }).catch(e => {
+                                console.error(e)
+                            })
+                        } else {
+                            self.newAddress(self.address)
+                            self.$emit('next')
                         }
-                    }).then(response => {
-                        console.log(response.data)
-                    }).catch(e => {
-                        console.error(e)
-                    })
+                    } else {
+                        self.newAddress(self.address)
+                        self.$emit('next')
+                    }
                     // Access the token with result.token
-                    self.$emit('next')
+
                 });
             },
             chooseAddress(index) {
-                this.address = this.addresses[index]
-                if (this.select != index)
+                if (this.select != index) {
                     this.select = index
-                else
+                    this.address = this.addresses[index]
+                } else {
                     this.select = NaN
+                    this.address= {}
+                }
             }
+        },
+        computed: {
+            ...mapGetters([
+                'getAddress'
+            ])
         }
     }
 </script>
@@ -103,15 +131,24 @@
         font-size: 1.3rem;
     }
 
-    .sections {
+    .section {
+        background: white;
         padding: 20px;
         margin: 50px 0;
+        width: 40vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sections {
+        padding: 20px;
     }
 
     .section-addresses {
         @extend .sections;
         flex-basis: 70%;
-        width: 60vw;
+        width: 100%;
         .container-cards {
             display: flex;
             flex-direction: row;
@@ -181,6 +218,27 @@
             height: 22px;
             border-radius: 3px;
             background-color: #5ea43e;
+        }
+    }
+
+    .check {
+        position: absolute;
+        bottom: 0px;
+        transform: translateY(50%);
+        width: 35px;
+        height: 35px;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+        &:before {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            content: '✓';
+            border-radius: 3px;
+            color: #5ea43e;
+            transform: translateX(-50%) translateY(-50%);
+            font-size: 25px;
         }
     }
 </style>

@@ -1,8 +1,8 @@
 <template>
     <main id="app">
-        <Header :user="user" :quantity="quantity" @disconnect="disconnect"></Header>
+        <Header :user="user" @disconnect="disconnect"></Header>
         <notifications group="notify" classes="my-notification"></notifications>
-        <router-view @connect="connect" :user="user" @quantity="quantity"/>
+        <router-view @connect="connect" :user="user"/>
         <Footer></Footer>
     </main>
 </template>
@@ -27,17 +27,10 @@
         methods: {
             connect(user) {
                 this.user = true
-                console.log(user)
                 this.$cookies.set('user', user, "14d")
             },
             disconnect() {
                 this.user = false
-            },
-            quantity(cart) {
-                let quantity = 0
-                for (let product in cart) {
-
-                }
             }
         },
         mounted() {

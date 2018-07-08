@@ -6,19 +6,15 @@ Vue.use(Vuex)
 const state = {
         token: '',
         address: '',
-        cToken: '',
-        quantity: 0
+        quantity: 0,
+        step: ''
     },
     mutations = {
         setAddress(state, payload) {
-            console.log(payload)
             state.address = payload
         },
         setToken(state, payload) {
             state.token = payload
-        },
-        setCustomerToken(state, payload) {
-            state.cToken = payload
         },
         setQuantity(state, payload) {
             let quantity = 0
@@ -26,7 +22,9 @@ const state = {
                 quantity += parseInt(item.quantity)
             }
             state.quantity = quantity
-            console.log('total quantity', state.quantity)
+        },
+        setStep(state, payload) {
+            state.step = payload
         }
     },
     getters = {
@@ -36,11 +34,11 @@ const state = {
         getToken(state) {
             return state.token
         },
-        getCustomerToken(state) {
-            return state.cToken
-        },
         getQuantity(state) {
             return state.quantity
+        },
+        getStep(state) {
+            return state.step
         }
     },
     actions = {
@@ -50,8 +48,8 @@ const state = {
         newToken({commit}, payload) {
             commit('setToken', payload)
         },
-        newCustomerToken({commit}, payload) {
-            commit('setCustomerToken', payload)
+        newStep({commit}, payload) {
+            commit('setStep', payload)
         },
         newQuantity({commit}, payload) {
             commit('setQuantity', payload)

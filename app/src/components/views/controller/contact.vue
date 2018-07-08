@@ -11,9 +11,9 @@
                     <label for="sujet">Votre sujet</label>
                 </div>
                 <div class="control">
-                    <label for="message">Message</label>
                     <textarea name="" id="message" cols="30" rows="10" placeholder="Message..."
                               v-model="mail.message"></textarea>
+                    <label for="message">Message</label>
                 </div>
                 <div class="submit">
                     <button type="submit" class="button">Envoyer</button>
@@ -23,11 +23,11 @@
         </div>
         <div class="information">
             <div class="tel">
-                <img src="" alt="">
+                <img src="../../../assets/phone.png" alt="">
                 <a href="tel:0155889043">0155889043</a>
             </div>
             <div class="mail">
-                <img src="" alt="">
+                <img src="../../../assets/mail.png" alt="">
                 <a href="mailto:contact@lbf.fr">contact@lbf.fr</a>
             </div>
         </div>
@@ -113,8 +113,18 @@
                     margin-top: 10px;
                     resize: none;
                     width: 100%;
-
+                    padding: 15px;
+                    border: 1px solid #ddd;
+                    background: transparent;
+                    font-size: 15px;
+                    &::placeholder {
+                        font-size: 15px;
+                    }
                 }
+                textarea + label {
+                    margin-top: 10px;
+                }
+
                 input {
                     display: block;
                     width: 100%;
@@ -127,7 +137,8 @@
                         font-size: 15px;
                     }
                 }
-                input + label {
+                input + label,
+                textarea + label {
                     position: absolute;
                     top: 10px;
                     transition: top 0.7s ease, opacity 0.7s ease;
@@ -137,12 +148,14 @@
                     color: #ccc;
                 }
                 input:valid + label,
-                input[type='email']:valid + label {
+                input[type='email']:valid + label,
+                textarea:valid + label {
                     opacity: 1;
                     top: 3px;
                 }
                 input:focus + label,
-                input[type='email']:focus + label {
+                input[type='email']:focus + label,
+                textarea:focus + label{
                     color: #E45353;
                 }
                 input[type='email']:focus + label {
@@ -150,6 +163,7 @@
                     top: 3px;
                 }
             }
+
             .submit{
                 margin-top: 30px;
                 align-self: flex-end;
@@ -170,24 +184,35 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-bottom: 20px;
+            padding-top: 30px;
+            padding-bottom: 30px;
             .tel {
-                margin-right: 15px;
+                margin-right: 50px;
                 height: 100%;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                img {
+                     width: 30px;
+                     height: 30px;
+                    margin-right: 10px;
+                }
                 a {
                     text-decoration: none;
                     color: white;
                 }
             }
             .mail {
-                margin-left: 15px;
+                margin-left: 50px;
                 height: 100%;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                img {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
                 a {
                     text-decoration: none;
                     color: white;
