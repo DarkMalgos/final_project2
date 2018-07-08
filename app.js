@@ -11,6 +11,7 @@ const indexRouter = require('./routes/index');
 const productsRouter = require('./routes/products');
 const addressesRouter = require('./routes/adresses');
 const billRouter = require('./routes/bill')
+const stripeRouter = require('./routes/stripeWebhook')
 
 const app = express();
 
@@ -55,7 +56,8 @@ app.use('/', indexRouter)
 app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/addresses', addressesRouter);
-app.use('/api/bill', billRouter)
+app.use('/api/bill', billRouter);
+app.use('/api/stripe', stripeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
