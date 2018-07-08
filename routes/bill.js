@@ -69,12 +69,9 @@ router.post('/:id', function (req, res, next) {
     }
 })
 
-router.get('/return', (req, res, next) => {
-    console.log('get', req.query)
-})
-
 router.post('/return', (req, res, next) => {
-    console.log('post', req.body)
+    const event_json = JSON.parse(request.body);
+    console.log(event_json)
 })
 
 module.exports = router;
