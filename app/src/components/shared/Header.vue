@@ -6,10 +6,10 @@
                     <p>À propos</p>
                     <ul class="dropped">
                         <li class="mb-20">
-                            <a @click="scrollInto('#how-it-work')">Comment ça marche ?</a>
+                            <router-link to="/#how-it-work">Comment ça marche ?</router-link>
                         </li>
                         <li class="mb-10">
-                            <a @click="scrollInto('#who-we-are')">Qui sommes-nous ?</a>
+                            <router-link to="/#who-we-are">Qui sommes-nous ?</router-link>
                         </li>
                     </ul>
                 </li>
@@ -20,9 +20,9 @@
                     <router-link to="/contact">Contact</router-link>
                 </li>
             </ul>
-            <a @click="scrollInto('#ship')" class="logo ml-60">
+            <router-link to="/" class="logo ml-60">
                 <img src="../../assets/logo2.png" alt="">
-            </a>
+            </router-link>
             <ul class="ml-60">
                 <template v-if="!user">
                     <li>
