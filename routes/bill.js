@@ -9,6 +9,7 @@ router.post('/:id', function (req, res, next) {
     let id = req.params.id,
         customer = null,
         total = 0
+
     database.sendQuery(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
         if (err) {
             console.log('error in fetching product', err)
@@ -40,7 +41,6 @@ router.post('/:id', function (req, res, next) {
         }).then(source => {
             console.log('source', source)
             stripe.charges.create({
-                // amount: req.body.totalPrice.split(".").join(''),
                 amount: total*100,
                 currency: 'eur',
                 description: 'Example charge',
@@ -54,11 +54,9 @@ router.post('/:id', function (req, res, next) {
             res.json({
                 message: err
             })
-            // Deal with an error
         });
     } else {
         stripe.charges.create({
-            // amount: req.body.totalPrice.split(".").join(''),
             amount: total*100,
             currency: 'eur',
             description: 'Example charge',
@@ -69,6 +67,14 @@ router.post('/:id', function (req, res, next) {
             })
         })
     }
+})
+
+router.get('/return', (req, res, next) => {
+    console.log('get', req.query)
+})
+
+router.post('/return', (req, res, next) => {
+    console.log('post', req.body)
 })
 
 module.exports = router;
