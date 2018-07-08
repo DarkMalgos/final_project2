@@ -134,6 +134,10 @@
                 this.$http.post(`${process.env.DEV_URL}/api/bill/${this.id}`, {
                     user: {
                         token: this.token
+                    },
+                    cart: {
+                        products: this.cart,
+                        taxe: this.taxe
                     }
                 }).then(response => {
                     console.log(response.data)

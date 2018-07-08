@@ -6,46 +6,69 @@ const express = require('express'),
 const database = require('../services/database.js');
 
 router.post('/:id', function (req, res, next) {
-    let id = req.params.id
+    let id = req.params.id,
+        customer = null,
+        total = 0
     database.sendQuery(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
         if (err) {
             console.log('error in fetching product', err)
             return
         }
-        console.log(results)
+        customer = results[0].stripe_id
     })
-    stripe.customers.create({
-        description: 'create toto'
-    }).then((customer) => {
-        database.sendQuery(`UPDATE users SET stripe_id = ${customer.id} WHERE id = ${id}`, (err, results) => {
-            if (err) {
-                console.log('error in updating user', err)
-                return
-            }
-            console.log(results)
-        })
-        return stripe.customers.createSource(customer.id, {
-            source: req.body.user.token
-        })
-    }).then(source => {
-        console.log('source', source)
+
+    for (let product of req.body.cart.products) {
+        total += (parseFloat(product.price)*parseFloat(product.quantity))
+    }
+
+    total += req.body.cart.taxe.price
+
+    if (customer == null) {
+        stripe.customers.create({
+            description: 'create toto'
+        }).then((customer) => {
+            database.sendQuery(`UPDATE users SET stripe_id = '${customer.id}' WHERE id = ${id}`, (err, results) => {
+                if (err) {
+                    console.log('error in updating user', err)
+                    return
+                }
+                console.log(results)
+            })
+            return stripe.customers.createSource(customer.id, {
+                source: req.body.user.token
+            })
+        }).then(source => {
+            console.log('source', source)
+            stripe.charges.create({
+                // amount: req.body.totalPrice.split(".").join(''),
+                amount: total*100,
+                currency: 'eur',
+                description: 'Example charge',
+                customer: source.customer
+            });
+            res.json({
+                customer: source.customer
+            })
+        }).catch(function (err) {
+            console.log(err)
+            res.json({
+                message: err
+            })
+            // Deal with an error
+        });
+    } else {
         stripe.charges.create({
             // amount: req.body.totalPrice.split(".").join(''),
-            amount: 100,
+            amount: total*100,
             currency: 'eur',
             description: 'Example charge',
-            customer: source.customer
-        });
-        res.json({
-            customer: source.customer
+            customer: customer
+        }).then(() => {
+            res.json({
+                customer: customer
+            })
         })
-    }).catch(function (err) {
-        console.log(err)
-        res.json({
-            message: err
-        })
-        // Deal with an error
-    });
+    }
 })
 
 module.exports = router;
