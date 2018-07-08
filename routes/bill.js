@@ -69,9 +69,4 @@ router.post('/:id', function (req, res, next) {
     }
 })
 
-router.post('/webhook', (req, res, next) => {
-    const event_json = JSON.parse(request.body);
-    console.log(event_json)
-})
-
 module.exports = router;
