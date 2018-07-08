@@ -64,7 +64,7 @@
             return {
                 drop: false,
                 nb_items: 0,
-                quantity: NaN
+                quantity: 0
             }
         },
         watch: {
@@ -99,6 +99,7 @@
                 this.newQuantity(cart.cart)
             }
             this.quantity = this.getQuantity
+            console.log(this.quantity)
         },
         computed: {
             ...mapGetters([
