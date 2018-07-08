@@ -5,10 +5,18 @@ const express = require('express'),
 
 router.post('/', function (req, res, next) {
 
-    console.log(req.body)
-    res.json({
-        status: req.body.status
-    })
+    if (req.body.type == 'charge.failed')
+        res.json({
+            status: 'failed'
+        })
+    else if (req.body.type == 'charge.succeeded')
+        res.json({
+            status: 'succeeded'
+        })
+    else
+        res.json({
+            status: 'error'
+        })
 })
 
 module.exports = router;
