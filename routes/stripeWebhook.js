@@ -6,7 +6,9 @@ const express = require('express'),
 const database = require('../services/database.js');
 
 router.post('/', function (req, res, next) {
-    console.log(req.body)
+    res.json({
+        status: req.body.status
+    })
 })
 
 module.exports = router;
