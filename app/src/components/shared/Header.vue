@@ -78,7 +78,10 @@
             ]),
             scrollInto(ancre) {
                 if (window.location.pathname != '/') {
-                    ancre != '#ship' ? this.$router.push(`/${ancre}`) : this.$router.push(`/`)
+                    if (ancre != '#ship')
+                        this.$router.push(`/${ancre}`)
+                    else
+                        this.$router.push(`/`)
                 } else {
                     document.querySelector(ancre).scrollIntoView({
                         behavior: 'smooth'
