@@ -45,9 +45,11 @@ router.post('/:id', function (req, res, next) {
                 currency: 'eur',
                 description: 'Example charge',
                 customer: source.customer
-            });
-            res.json({
-                customer: source.customer
+            }).then(charge => {
+                console.log(charge)
+                res.json({
+                    customer: source.customer
+                })
             })
         }).catch(function (err) {
             console.log(err)
@@ -61,7 +63,8 @@ router.post('/:id', function (req, res, next) {
             currency: 'eur',
             description: 'Example charge',
             customer: customer
-        }).then(() => {
+        }).then((charge) => {
+            console.log(charge)
             res.json({
                 customer: customer
             })
