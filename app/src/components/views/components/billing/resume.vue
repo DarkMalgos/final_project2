@@ -140,17 +140,7 @@
                         taxe: this.taxe
                     }
                 }).then(response => {
-                    this.$http.post(`${process.env.PROD_URL}/api/stripe/`)
-                        .then(response => {
-                            if (response.data.status == 'succeeded') {
-                                alert('succeeded')
-                            } else {
-                                alert('error')
-                            }
-                        })
-                        .catch(e => {
-                            console.error(e)
-                    })
+                    console.log(response)
                 }).catch(e => {
                     console.error(e)
                 })
