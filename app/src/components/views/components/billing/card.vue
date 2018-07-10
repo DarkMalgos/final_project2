@@ -46,7 +46,7 @@
             this.id = this.$cookies.get('user')
             /*if (this.id == null)
                 this.$router.push('/')*/
-            this.$http.get(`${process.env.DEV_URL}/api/addresses/${this.id}`)
+            this.$http.get(`${process.env.PROD_URL}/api/addresses/${this.id}`)
                 .then(response => {
                     for (let product of response.data) {
                         this.addresses.push(product)
@@ -87,7 +87,7 @@
                     self.newToken(result.token.id)
                     if (self.getAddress != '') {
                         if (self.getAddress.street == self.address.street) {
-                            self.$http.post(`${process.env.DEV_URL}/api/addresses/${self.id}`, {
+                            self.$http.post(`${process.env.PROD_URL}/api/addresses/${self.id}`, {
                                 address: self.address
                             }).then(response => {
                                 if (response.data == 'ok')

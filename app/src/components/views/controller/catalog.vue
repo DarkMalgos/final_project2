@@ -183,7 +183,7 @@
                 this.newAddress(this.bdd_address)
             })
             this.address = this.getAddress.all
-            this.$http.get(`${process.env.DEV_URL}/api/products/`)
+            this.$http.get(`${process.env.PROD_URL}/api/products/`)
                 .then(response => {
                     for (let product of response.data) {
                         product.quantity = 1

@@ -131,7 +131,7 @@
                 }), "7d")
             },
             payement() {
-                this.$http.post(`${process.env.DEV_URL}/api/bill/${this.id}`, {
+                this.$http.post(`${process.env.PROD_URL}/api/bill/${this.id}`, {
                     user: {
                         token: this.token
                     },

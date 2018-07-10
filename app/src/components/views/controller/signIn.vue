@@ -36,7 +36,7 @@
                 'newStep'
             ]),
             connection() {
-                this.$http.post(process.env.DEV_URL + '/api/users/connexion', {
+                this.$http.post(process.env.PROD_URL + '/api/users/connexion', {
                     user: this.user
                 }).then(response => {
                     if (response.data.user) {

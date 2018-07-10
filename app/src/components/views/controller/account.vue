@@ -70,7 +70,7 @@
             this.id = this.$cookies.get('user')
             if (this.id == null)
                 this.$router.push('/')
-            this.$http.get(`${process.env.DEV_URL}/api/users/${this.id}`)
+            this.$http.get(`${process.env.PROD_URL}/api/users/${this.id}`)
                 .then(response => {
                     this.user = response.data.user
                     this.addresses = response.data.addresses
@@ -81,7 +81,7 @@
         },
         methods: {
             updateUser(){
-                this.$http.post(`${process.env.DEV_URL}/api/users/update/${this.id}`, {
+                this.$http.post(`${process.env.PROD_URL}/api/users/update/${this.id}`, {
                     user: this.user
                 }).then(response => {
                     if (response.data == 'Réussi')
@@ -94,7 +94,7 @@
                 })
             },
             deleteCard(index) {
-                this.$http.delete(`${process.env.DEV_URL}/api/addresses/${this.addresses[index].id}`)
+                this.$http.delete(`${process.env.PROD_URL}/api/addresses/${this.addresses[index].id}`)
                     .then(response => {
                         this.addresses.splice(index, 1)
                         this.$notify({
