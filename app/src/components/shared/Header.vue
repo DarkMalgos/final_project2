@@ -6,10 +6,10 @@
                     <p>À propos</p>
                     <ul class="dropped">
                         <li class="mb-20">
-                            <router-link to="/#how-it-work">Comment ça marche ?</router-link>
+                            <a @click="scrollInto('#how-it-work')">Comment ça marche ?</a>
                         </li>
                         <li class="mb-10">
-                            <router-link to="/#who-we-are">Qui sommes-nous ?</router-link>
+                            <a @click="scrollInto('#who-we-are')">Qui sommes-nous ?</a>
                         </li>
                     </ul>
                 </li>
@@ -77,8 +77,8 @@
                 'newQuantity'
             ]),
             scrollInto(ancre) {
-                console.log(window.location.pathname)
-                if (window.location.pathname != '/') {
+                let road = window.location.hash.split('#')
+                if (road[1] != '/') {
                     if (ancre != '#ship')
                         this.$router.push(`/${ancre}`)
                     else

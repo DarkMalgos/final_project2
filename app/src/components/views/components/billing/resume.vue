@@ -89,7 +89,7 @@
         },
         mounted() {
             this.id = this.$cookies.get('user')
-            this.$http.get(`${process.env.PROD_URL}/api/users/${this.id}`)
+            this.$http.get(`${process.env.DEV_URL}/api/users/${this.id}`)
                 .then(response => {
                     this.user = response.data.user
                 }).catch(e => {
@@ -131,16 +131,24 @@
                 }), "7d")
             },
             payement() {
-                this.$http.post(`${process.env.PROD_URL}/api/bill/${this.id}`, {
+                this.$http.post(`${process.env.DEV_URL}/api/bill/${this.id}`, {
                     user: {
                         token: this.token
                     },
                     cart: {
                         products: this.cart,
                         taxe: this.taxe
-                    }
+                    },
+                    address: this.address
                 }).then(response => {
-                    console.log(response)
+                    console.log(response.data)
+                    /*this.$http.get(`${process.env.DEV_URL}/api/stripe/${response.data.charge}`)
+                        .then(response => {
+                            console.log(response.data)
+                        })
+                        .catch(e => {
+                            console.error(e)
+                        })*/
                 }).catch(e => {
                     console.error(e)
                 })

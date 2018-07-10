@@ -70,9 +70,8 @@
             this.id = this.$cookies.get('user')
             if (this.id == null)
                 this.$router.push('/')
-            this.$http.get(`${process.env.PROD_URL}/api/users/${this.id}`)
+            this.$http.get(`${process.env.DEV_URL}/api/users/${this.id}`)
                 .then(response => {
-                    console.log(response.data)
                     this.user = response.data.user
                     this.addresses = response.data.addresses
                 })
@@ -92,6 +91,20 @@
                             title: 'Modification des informations',
                             text: response.data
                         })
+                })
+            },
+            deleteCard(index) {
+                this.$http.delete(`${process.env.DEV_URL}/api/addresses/${this.addresses[index].id}`)
+                    .then(response => {
+                        this.addresses.splice(index, 1)
+                        this.$notify({
+                            group: 'account',
+                            type: 'warn',
+                            title: 'Modification des informations',
+                            text: 'addresse supprimée'
+                        })
+                    }).catch(e => {
+                        console.error(e)
                 })
             }
         }

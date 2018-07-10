@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "pm2 start ./bin/www --name server --watch & pm2 log",
+    "start": "cd app/ && npm run build && cd .. && node bin/www",
     "restart": "pm2 restart server 0 & pm2 log",
     "log": "pm2 log"
   },
