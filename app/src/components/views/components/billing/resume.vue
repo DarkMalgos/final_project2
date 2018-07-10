@@ -89,7 +89,7 @@
         },
         mounted() {
             this.id = this.$cookies.get('user')
-            this.$http.get(`${process.env.DEV_URL}/api/users/${this.id}`)
+            this.$http.get(`${process.env.PROD_URL}/api/users/${this.id}`)
                 .then(response => {
                     this.user = response.data.user
                 }).catch(e => {
