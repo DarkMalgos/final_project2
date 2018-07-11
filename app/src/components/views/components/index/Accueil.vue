@@ -3,7 +3,7 @@
         <div class="container">
             <h1>Le bien mangé français livré où vous voulez !</h1>
             <div>
-                <input ref="autocomplete" type="text" id="adress" placeholder="10 avenue du maine, Paris, 750015"
+                <input ref="autocomplete" type="text" id="adress" placeholder="60 quai de Jemmapes, Paris, 750011"
                        @keyup.enter="goCommander" v-model="address">
                 <div @click="goCommander"><img src="../../../../assets/search.png" alt=""></div>
             </div>
@@ -88,9 +88,12 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 550px;
+                width: 50%;
                 height: 30px;
                 box-shadow: 0px 12px 6px rgba(0, 0, 0, .2);
+                @media all and (max-width: 768px) {
+                    width: 100%;
+                }
                 input {
                     width: 90%;
                     height: 100%;

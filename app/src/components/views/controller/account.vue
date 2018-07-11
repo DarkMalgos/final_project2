@@ -36,7 +36,7 @@
                         </div>
                         <div class="card">
                             <p>Ajouter une nouvelle adresse</p>
-                            <span class="add"></span>
+                            <span @click="showModal=true" class="add"></span>
                         </div>
                     </div>
                 </section>
@@ -55,16 +55,23 @@
                 </section>
             </div>
         </div>
+        <addAdress v-if="showModal" @close="close"></addAdress>
     </main>
 </template>
 <script>
+
+    import addAdress from '../../shared/addAddress'
     export default {
         data() {
             return {
                 user: {},
                 addresses: [],
-                id: NaN
+                id: NaN,
+                showModal: false
             }
+        },
+        components: {
+          addAdress
         },
         mounted() {
             this.id = this.$cookies.get('user')
@@ -106,6 +113,11 @@
                     }).catch(e => {
                         console.error(e)
                 })
+            },
+            close(address) {
+                this.showModal = false
+                if (address != null)
+                    this.addresses.push(address)
             }
         }
     }
@@ -216,7 +228,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-around;
-                width: 240px;
+                width: 300px;
                 padding: 27px 15px;
                 background-color: #5F93BB;
                 margin: 5px;
@@ -231,6 +243,7 @@
     }
 
     .delete {
+        cursor: pointer;
         position: absolute;
         bottom: 0px;
         transform: translateY(50%);
@@ -264,6 +277,7 @@
     }
 
     .add {
+        cursor: pointer;
         position: absolute;
         bottom: 0px;
         transform: translateY(50%);
@@ -310,5 +324,19 @@
         p {
             font-size: 1rem;
         }
+    }
+
+    .modal-enter {
+        opacity: 0;
+    }
+
+    .modal-leave-active {
+        opacity: 0;
+    }
+
+    .modal-enter .modal-container,
+    .modal-leave-active .modal-container {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
     }
 </style>

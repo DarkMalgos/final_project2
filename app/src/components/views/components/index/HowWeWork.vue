@@ -43,30 +43,39 @@
             margin-top: 40px;
             margin-bottom: 40px;
             h2 {
-                margin-bottom: 40px;
+                margin-bottom: 20px;
             }
             div {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                align-items: center;
+                align-items: flex-end;
                 height: 100%;
                 width: 100%;
                 margin: 0;
                 div {
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-between;
+                    justify-content: flex-end;
                     align-items: center;
-                    height: 100%;
+                    height: 150px;
                     width: 25%;
                     color: black;
                     img {
                         width: 50px;
                         margin-bottom: 40px;
+                        @media all and (max-width: 768px){
+                            width: 50%;
+                        }
+                        @media all and (max-width: 767px) and (min-width: 200px){
+                            width: 70%;
+                        }
                     }
                     h3 {
                         font-size: 15px;
+                        @media all and (max-width: 768px){
+                            font-size: 12px;
+                        }
                     }
                 }
 
@@ -75,7 +84,14 @@
                 height: 3px;
                 width: 45%;
                 background-color: #5F93BB;
-                margin-bottom: 50px;
+                margin-bottom: 70px;
+                @media all and (max-width: 768px){
+                    width: 30%;
+                }
+                @media all and (max-width: 767px) and (min-width: 200px){
+                    width: 20%;
+                    margin-bottom: 80px;
+                }
             }
         }
     }

@@ -142,13 +142,9 @@
                     address: this.address
                 }).then(response => {
                     console.log(response.data)
-                    /*this.$http.get(`${process.env.DEV_URL}/api/stripe/${response.data.charge}`)
-                        .then(response => {
-                            console.log(response.data)
-                        })
-                        .catch(e => {
-                            console.error(e)
-                        })*/
+                    if (response.data == 'succeeded') {
+
+                    }
                 }).catch(e => {
                     console.error(e)
                 })

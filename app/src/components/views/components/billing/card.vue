@@ -12,7 +12,7 @@
                 </div>
                 <div class="card">
                     <p>Ajouter une nouvelle adresse</p>
-                    <span class="add"></span>
+                    <span @click="showModal=true" class="add"></span>
                 </div>
             </div>
         </section>
@@ -20,11 +20,13 @@
             <div ref="card"></div>
             <button v-on:click="purchase" class="button">Payer</button>
         </div>
+        <addAdress v-if="showModal" @close="close"></addAdress>
     </section>
 </template>
 
 <script>
     import {mapGetters, mapActions} from 'vuex'
+    import addAdress from '../../../shared/addAddress'
 
     let stripe = Stripe(`${process.env.STRIPE_KEY}`),
         elements = stripe.elements(),
@@ -37,8 +39,12 @@
                 id: NaN,
                 addresses: [],
                 select: 0,
-                address: {}
+                address: {},
+                showModal: false
             }
+        },
+        components: {
+          addAdress
         },
         mounted() {
             if (this.getAddress != '')
@@ -114,6 +120,13 @@
                 } else {
                     this.select = NaN
                     this.address= {}
+                }
+            },
+            close(address) {
+                this.showModal = false
+                if (address != null) {
+                    this.addresses.push(address)
+                    this.select = this.addresses.length - 1
                 }
             }
         },

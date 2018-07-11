@@ -23,7 +23,7 @@
                 </div>
                 <div class="triangle"></div>
             </div>
-            <input id="loc" ref="autocomplete" type="text" v-model="address">
+            <input id="loc" ref="autocomplete" type="text" v-model="address" placeholder="60 quai de Jemmapes, Paris, 750011">
             <div class="loop"><img src="../../../assets/search.png" alt=""></div>
             <div class="order-taxe">
                 <div class="taxe" @click="getTaxe('30/40 mins', 2)">

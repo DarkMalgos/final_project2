@@ -24,8 +24,7 @@ router.post('/:id', function (req, res, next) {
             console.error('error in fetching address', err)
             return
         }
-
-        res.json(results)
+        res.json(results.insertId)
     })
 })
 

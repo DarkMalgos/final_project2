@@ -1,6 +1,6 @@
 <template>
     <main id="app">
-        <Header :user="user" @disconnect="disconnect"></Header>
+        <component :is="witchHeader" :user="user" @disconnect="disconnect"></component>
         <notifications group="notify" classes="my-notification"></notifications>
         <router-view @connect="connect" :user="user"/>
         <Footer></Footer>
@@ -9,6 +9,7 @@
 
 <script>
     import Header from './components/shared/Header'
+    import RespHeader from './components/shared/respHeader'
     import Footer from './components/shared/Footer'
 
     export default {
@@ -17,11 +18,13 @@
             return {
                 affModal: false,
                 modalMess: '',
-                user: false
+                user: false,
+                witchHeader: 'Header'
             }
         },
         components: {
             Header,
+            RespHeader,
             Footer
         },
         methods: {
@@ -34,6 +37,11 @@
             }
         },
         mounted() {
+            console.log(window.innerWidth)
+            if (window.innerWidth < 1024) {
+                this.witchHeader = 'RespHeader'
+            }
+            console.log(this.witchHeader)
             let user = this.$cookies.get('user')
             if (user != null) {
                 this.connect(user)
@@ -77,6 +85,7 @@
         cursor: pointer;
         transition: all ease .5s;
         padding: 5px;
+        background: transparent;
         a {
             color: #5F93BB !important;
             transition: all ease .5s;

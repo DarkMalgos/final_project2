@@ -186,6 +186,9 @@
                 width: 20%;
                 align-self: flex-end;
                 color: #5F93BB;
+                @media all and (max-width: 768px){
+                    width: 35%;
+                }
                 &:hover {
                     color: white;
                 }

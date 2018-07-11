@@ -8,32 +8,40 @@
             <div class="body-container">
                 <div>
                     <div class="people">
-                        <div class="circle">
-                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        </div>
+                        <transition name="fade">
+                            <div class="circle">
+                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            </div>
+                        </transition>
                         <p>Jean Patry</p>
                         <p>Chef</p>
                     </div>
                     <div class="people">
-                        <div class="circle">
-                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        </div>
+                        <transition name="fade">
+                            <div class="circle">
+                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            </div>
+                        </transition>
                         <p>Jean Patry</p>
                         <p>Chef</p>
                     </div>
                     <div class="people">
-                        <div class="circle">
-                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        </div>
+                        <transition name="fade">
+                            <div class="circle">
+                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            </div>
+                        </transition>
                         <p>Jean Patry</p>
                         <p>Chef</p>
                     </div>
                 </div>
                 <div>
                     <div class="people">
-                        <div class="circle">
-                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        </div>
+                        <transition name="fade">
+                            <div class="circle">
+                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            </div>
+                        </transition>
                         <p>Jean Patry</p>
                         <p>Chef</p>
                     </div>
@@ -88,6 +96,9 @@
                 justify-content: center;
                 align-items: center;
                 width: 100%;
+                @media all and (max-width: 768px) {
+                    flex-direction: column;
+                }
                 &:last-of-type {
                     margin-top: 20px;
                 }
@@ -100,6 +111,9 @@
                     width: auto;
                     &:not(:last-of-type) {
                         margin-right: 120px;
+                        @media all and (max-width: 768px) {
+                            margin: 0;
+                        }
                     }
                     .circle {
                         display: flex;
@@ -107,29 +121,30 @@
                         justify-content: center;
                         align-items: center;
                         position: relative;
-                        width: 130px;
-                        height: 130px;
+                        width: 150px;
+                        height: 150px;
                         background: url("../../../../assets/team.jpg") no-repeat center;
                         border-radius: 50%;
                         background-size: cover;
                         .description {
-                             visibility: hidden;
-                             position: absolute;
-                             background-color: rgba(95, 147, 187, .7);
-                             top: 0;
-                             color: white;
-                             width: 100%;
-                             height: 100%;
-                             display: flex;
-                             justify-content: center;
-                             align-items: center;
-                             transition: all ease .2s;
-                             border-radius: 50%;
-                             text-align: center;
-                         }
+                            opacity: 0;
+                            position: absolute;
+                            background-color: rgba(95, 147, 187, .7);
+                            top: 0;
+                            color: white;
+                            width: calc(100% - 20px);
+                            height: calc(100% - 20px);
+                            display: flex;
+                            padding: 10px;
+                            justify-content: center;
+                            align-items: center;
+                            transition: opacity .5s;
+                            border-radius: 50%;
+                            text-align: center;
+                        }
                         &:hover {
                             .description {
-                                visibility: visible;
+                                opacity: 1;
                             }
                         }
                         &:not(:first-of-type) {
@@ -140,6 +155,5 @@
             }
         }
     }
-
 
 </style>
