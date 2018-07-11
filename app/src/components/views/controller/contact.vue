@@ -63,13 +63,18 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
+        @media all and (max-width: 768px){
+            height: auto;
+        }
         .block {
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: flex-start;
-
+            @media all and (max-width: 768px){
+                height: 550px;
+            }
             .illu {
                 height: 100%;
                 width: 30%;
@@ -80,6 +85,9 @@
         .form-container {
             width: 40%;
             margin: 0 auto;
+            @media all and (max-width: 768px){
+                margin-top: 70px;
+            }
         }
         form {
             height: 40%;
@@ -89,6 +97,9 @@
             justify-content: space-between;
             font-size: 15px;
             margin: 20px 0;
+            @media all and (max-width: 768px){
+                height: auto;
+            }
             .groupir {
                 display: flex;
                 flex-direction: row;
@@ -167,6 +178,9 @@
             .submit{
                 margin-top: 30px;
                 align-self: flex-end;
+                @media all and (max-width: 768px){
+                    margin: 0;
+                }
                 button{
                     color: #5F93BB;
                     font-size: 15px;
@@ -187,7 +201,7 @@
             padding-top: 30px;
             padding-bottom: 30px;
             .tel {
-                margin-right: 50px;
+                margin-right: 5%;
                 height: 100%;
                 display: flex;
                 align-items: center;
@@ -203,7 +217,7 @@
                 }
             }
             .mail {
-                margin-left: 50px;
+                margin-left: 5%;
                 height: 100%;
                 display: flex;
                 align-items: center;

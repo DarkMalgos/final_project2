@@ -167,7 +167,7 @@
     .info {
         @extend .sections;
         flex-basis: 30%;
-        width: 30vw;
+        width: 40vw;
         background: white;
         border-radius: 5px;
         form {
@@ -214,7 +214,7 @@
 
     .section-addresses {
         @extend .sections;
-        flex-basis: 70%;
+        flex-basis: 90%;
         .container-cards {
             display: flex;
             flex-direction: row;

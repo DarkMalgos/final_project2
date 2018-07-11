@@ -97,6 +97,7 @@
                 else {
                     this.underTotal = 0
                     this.Total = this.taxe.price
+                    this.$cookies.remove('cart')
                 }
             },
             removeItem(index) {
@@ -118,6 +119,14 @@
             },
             nextStep() {
                 let user = this.$cookies.get('user')
+                if (this.cart.length < 1) {
+                    this.$notify({
+                        group: 'bill',
+                        type: 'warn',
+                        title: 'Votre panier est vide.'
+                    })
+                    return
+                }
                 if (user == null) {
                     this.showModal = true
                 } else {

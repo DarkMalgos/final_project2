@@ -43,7 +43,7 @@
                 <li class="ml-40" id="basket">
                     <router-link to="/cart">
                         <img src="../../assets/basket.png" alt="">
-                        <span class="after">{{quantity}}</span>
+                        <span class="after">{{getQuantity}}</span>
                     </router-link>
                 </li>
             </ul>
@@ -57,19 +57,12 @@
     export default {
         name: "Header",
         props: {
-            user: Boolean,
-            quantity: 0
+            user: Boolean
         },
         data() {
             return {
                 drop: false,
                 nb_items: 0,
-                quantity: 0
-            }
-        },
-        watch: {
-            getQuantity: function (val) {
-                this.quantity = val
             }
         },
         methods: {
@@ -93,6 +86,11 @@
             disconnect() {
                 this.$cookies.remove('user')
                 this.$emit('disconnect')
+                this.$notify({
+                    group: 'notify',
+                    type: 'warn',
+                    title: 'Vous vous êtes bien déconnecté'
+                })
                 this.$router.push('/')
             }
         },
@@ -102,8 +100,6 @@
                 cart = JSON.parse(cart)
                 this.newQuantity(cart.cart)
             }
-            this.quantity = this.getQuantity
-            console.log(this.quantity)
         },
         computed: {
             ...mapGetters([

@@ -47,10 +47,10 @@
                         <h3>Prix</h3>
                         <h3>Date</h3>
                     </div>
-                    <div class="container-orders">
-                        <p>etat</p>
-                        <p>prix</p>
-                        <p>date</p>
+                    <div class="container-orders" v-for="order in orders">
+                        <p>{{order.status}}</p>
+                        <p>{{order.price}}€</p>
+                        <p>{{order.date}}</p>
                     </div>
                 </section>
             </div>
@@ -66,6 +66,7 @@
             return {
                 user: {},
                 addresses: [],
+                orders: [],
                 id: NaN,
                 showModal: false
             }
@@ -81,6 +82,10 @@
                 .then(response => {
                     this.user = response.data.user
                     this.addresses = response.data.addresses
+                    this.orders = response.data.orders
+                    for (let order of this.orders) {
+                        order.date = order.date.split('T')[0]
+                    }
                 })
                 .catch(e => {
                     console.error(e)
@@ -129,12 +134,14 @@
         width: 95vw;
         margin: 0 auto;
         margin-top: 8%;
-        height: 100vh;
         .container {
             display: flex;
             justify-content: space-between;
             flex-basis: 100%;
             margin: 50px 0;
+            @media all and (max-width: 768px){
+                flex-direction: column;
+            }
         }
     }
 
@@ -155,6 +162,10 @@
         @extend .sections;
         flex-basis: 30%;
         width: 30vw;
+        @media all and (max-width: 768px){
+            width: 90%;
+            margin-top: 30px;
+        }
         form {
             display: flex;
             flex-direction: column;
@@ -219,6 +230,9 @@
         @extend .sections;
         flex-basis: 70%;
         width: 60vw;
+        @media all and (max-width: 768px){
+            width: 90%;
+        }
         .container-cards {
             display: flex;
             flex-direction: row;
@@ -235,6 +249,9 @@
                 margin-bottom: 50px;
                 color: #fff;
                 border-radius: 5px;
+                @media all and (max-width: 768px){
+                    width: 100%;
+                }
                 p {
                     font-size: 1rem;
                 }
@@ -321,8 +338,26 @@
         background-color: white;
         padding: 10px 10vw;
         margin-bottom: 15px;
+        &:not(:first-of-type) {
+            justify-content: flex-start;
+        }
         p {
             font-size: 1rem;
+            text-align: left;
+            &:first-child {
+                margin-right: 200px;
+            }
+            &:last-child {
+                margin-left: 160px;
+            }
+            @media all and (max-width: 768px){
+                &:first-child {
+                    margin-right: 80px;
+                }
+                &:last-child {
+                    margin-left: 50px;
+                }
+            }
         }
     }
 

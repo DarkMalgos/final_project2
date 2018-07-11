@@ -15,7 +15,7 @@
                 <div class="ml-40" id="basket">
                     <router-link to="/cart">
                         <img src="../../assets/basket.png" alt="">
-                        <span class="after">{{quantity}}</span>
+                        <span class="after">{{getQuantity}}</span>
                     </router-link>
                 </div>
             </nav>
@@ -61,20 +61,13 @@
     export default {
         name: "respHeader",
         props: {
-            user: Boolean,
-            quantity: 0
+            user: Boolean
         },
         data() {
             return {
                 drop: false,
                 nb_items: 0,
-                quantity: 0,
                 showMenu: false
-            }
-        },
-        watch: {
-            getQuantity: function (val) {
-                this.quantity = val
             }
         },
         methods: {
@@ -125,8 +118,6 @@
                 cart = JSON.parse(cart)
                 this.newQuantity(cart.cart)
             }
-            this.quantity = this.getQuantity
-            console.log(this.quantity)
         },
         computed: {
             ...mapGetters([

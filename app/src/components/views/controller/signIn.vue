@@ -26,9 +26,7 @@
                 user: {
                     email: '',
                     password: ''
-                },
-                error: '',
-                errCo: false
+                }
             }
         },
         methods: {
@@ -41,15 +39,13 @@
                 }).then(response => {
                     if (response.data.user) {
                         this.$emit('connect', response.data.user);
-                        if (window.location.search) {
+                        if (window.location.href.split('?').length > 1) {
                             this.newStep(2)
                             this.$router.push('/cart')
                         } else {
                             this.$router.push('/')
                         }
                     } else {
-                        this.error = response.data
-                        this.errCo = true
                         this.$notify({
                             group: 'erlog',
                             type: 'error',
@@ -151,7 +147,7 @@
                 align-self: flex-end;
                 color: #5F93BB;
                 @media all and (max-width: 768px){
-                    width: 35%;
+                    width: 45%;
                 }
                 &:hover {
                     color: white;

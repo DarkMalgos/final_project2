@@ -5,7 +5,7 @@ const database = require('../services/database.js');
 
 /* GET users listing. */
 router.get('/:id', function (req, res, next) {
-    let id = req.params.id
+    const id = req.params.id
 
     database.sendQuery(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
         if (err) {
@@ -19,10 +19,13 @@ router.get('/:id', function (req, res, next) {
                 console.error('error in fetching address', err)
                 return
             }
-
-            res.json({
-                user,
-                addresses: results
+            let addresses = results
+            database.sendQuery(`SELECT * FROM order_products WHERE id_user = ${id}`, (err, results) => {
+                res.json({
+                    user,
+                    addresses,
+                    orders: results
+                })
             })
         })
     })
@@ -47,7 +50,6 @@ router.post('/', function (req, res, next) {
             console.error('error in fetching users', err)
             return
         }
-
         if (results.length > 0) {
             res.json('Cet email déjà utilisé')
             return
@@ -60,14 +62,12 @@ router.post('/', function (req, res, next) {
                 console.error('error in adding user', err)
                 return
             }
-            req.session.user = results.insertId
             database.sendQuery(`INSERT INTO address (street, city, zipcode, id_user) VALUES ('${req.body.address.street}', '${req.body.address.city}', '${req.body.address.zipcode}', ${results.insertId})`, function (err, results) {
                 if (err) console.error('error in adding address', err)
                 req.session.save(function(err) {
                     if (err) {
                         console.log('error in save session', err)
                     } else {
-                        console.log('test', req.session)
                         res.json({
                             user: req.session.user
                         })

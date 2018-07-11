@@ -44,7 +44,7 @@ router.post('/:id', function (req, res, next) {
                     customer: source.customer
                 }).then((charge) => {
                     if (charge.status == 'succeeded') {
-                        database.sendQuery(`INSERT INTO order_products (id_address, price, status) VALUES (${req.body.address.id}, ${total}, 'en attente de validation')`, (err, results) => {
+                        database.sendQuery(`INSERT INTO order_products (id_address, price, status, id_user) VALUES (${req.body.address.id}, ${total}, 'en attente de validation', ${id})`, (err, results) => {
                             if (err) {
                                 console.error('error in insert order', err)
                                 return
@@ -69,7 +69,7 @@ router.post('/:id', function (req, res, next) {
                     customer: source.customer
                 }).then((charge) => {
                     if (charge.status == 'succeeded') {
-                        database.sendQuery(`INSERT INTO order_products (id_address, price, status) VALUES (${req.body.address.id}, ${total}, 'en attente de validation')`, (err, results) => {
+                        database.sendQuery(`INSERT INTO order_products (id_address, price, status, id_user) VALUES (${req.body.address.id}, ${total}, 'en attente de validation', ${id})`, (err, results) => {
                             if (err) {
                                 console.error('error in insert order', err)
                                 return

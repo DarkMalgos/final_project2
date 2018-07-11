@@ -37,11 +37,10 @@
             }
         },
         mounted() {
-            console.log(window.innerWidth)
-            if (window.innerWidth < 1024) {
+            if (window.innerWidth < 870) {
                 this.witchHeader = 'RespHeader'
             }
-            console.log(this.witchHeader)
+
             let user = this.$cookies.get('user')
             if (user != null) {
                 this.connect(user)

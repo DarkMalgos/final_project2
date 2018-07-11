@@ -3,7 +3,6 @@
         <section class="section-addresses">
             <h2>Vos adresses</h2>
             <div class="container-cards">
-                <!-- todo: get l'adresse du state et la mettre en active -->
                 <div v-for="(card, index) in addresses" class="card" @click="chooseAddress(index)">
                     <p>{{card.street}}</p>
                     <p>{{card.zipcode}} </p>
@@ -46,9 +45,20 @@
         components: {
           addAdress
         },
+        created() {
+            card = elements.create('card', {
+                base: {
+                    border: '1px solid #D8D8D8',
+                    borderRadius: '4px',
+                    color: "#000"
+                }
+            });
+        },
         mounted() {
-            if (this.getAddress != '')
+            if (this.getAddress != '') {
                 this.addresses.push(this.getAddress)
+                this.address = this.getAddress
+            }
             this.id = this.$cookies.get('user')
             /*if (this.id == null)
                 this.$router.push('/')*/
@@ -63,13 +73,6 @@
                 .catch(e => {
                     console.error(e)
                 })
-            card = elements.create('card', {
-                base: {
-                    border: '1px solid #D8D8D8',
-                    borderRadius: '4px',
-                    color: "#000"
-                }
-            });
             card.mount(this.$refs.card);
         },
         methods: {
@@ -92,6 +95,7 @@
                     }
                     self.newToken(result.token.id)
                     if (self.getAddress != '') {
+                        console.log('state vide')
                         if (self.getAddress.street == self.address.street) {
                             self.$http.post(`${process.env.PROD_URL}/api/addresses/${self.id}`, {
                                 address: self.address
@@ -106,6 +110,7 @@
                             self.$emit('next')
                         }
                     } else {
+                        console.log('state plein')
                         self.newAddress(self.address)
                         self.$emit('next')
                     }
@@ -167,6 +172,7 @@
             flex-direction: row;
             flex-wrap: wrap;
             .card {
+                cursor: pointer;
                 position: relative;
                 display: flex;
                 align-items: center;

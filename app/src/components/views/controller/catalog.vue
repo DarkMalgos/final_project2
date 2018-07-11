@@ -23,7 +23,8 @@
                 </div>
                 <div class="triangle"></div>
             </div>
-            <input id="loc" ref="autocomplete" type="text" v-model="address" placeholder="60 quai de Jemmapes, Paris, 750011">
+            <input id="loc" ref="autocomplete" type="text" v-model="address"
+                   placeholder="60 quai de Jemmapes, Paris, 750011">
             <div class="loop"><img src="../../../assets/search.png" alt=""></div>
             <div class="order-taxe">
                 <div class="taxe" @click="getTaxe('30/40 mins', 2)">
@@ -102,7 +103,7 @@
                             <p>Total</p>
                             <p>{{Total}} €</p>
                         </div>
-                        <button @click="goCart"  class="button">Valider</button>
+                        <button @click="goCart" class="button">Valider</button>
                     </div>
                 </div>
             </div>
@@ -145,6 +146,7 @@
                 },
                 delayedDragging: false,
                 address: '',
+                bdd_address: {},
                 taxe: {
                     txt: '< 15 mins',
                     price: 4
@@ -238,7 +240,7 @@
                 }
                 this.getTotal();
             },
-            getUnderTotal(){
+            getUnderTotal() {
                 let calc = 0
                 for (let item of this.cart) {
                     calc += item.total
@@ -322,6 +324,7 @@
     #loc:focus {
         outline-color: #e45353;
     }
+
     #catalog {
         position: relative;
         margin-top: 10vh;
@@ -355,15 +358,21 @@
             position: absolute;
             background-color: white;
             height: 80px;
-            top: 440px;
+            top: 44%;
             left: 50%;
             transform: translateX(-50%);
             box-shadow: 0px 1px 10px rgba(99, 150, 189, .16);
             z-index: 300;
             display: flex;
+
             align-items: center;
             justify-content: flex-start;
             border-radius: 3px;
+            @media all and (max-width: 768px) {
+                top: 13.5%;
+                flex-wrap: wrap;
+                border-radius: 5px;
+            }
             .container-picto {
                 display: flex;
                 justify-content: flex-start;
@@ -378,6 +387,9 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    @media all and (max-width: 768px) {
+                        border-bottom-left-radius: 0px;
+                    }
                     img {
                         width: 55%;
                         height: 55%;
@@ -393,7 +405,7 @@
             }
             input {
                 height: 100%;
-                width: 30%;
+                width: 72.03%;
                 border: none;
                 margin-left: 10px;
                 word-spacing: 0;
@@ -413,6 +425,9 @@
                 img {
                     width: 40%;
                 }
+                @media all and (max-width: 768px) {
+                    border-top-right-radius: 3px;
+                }
             }
             .order-taxe {
                 background-color: rgba(99, 150, 189, .33);
@@ -424,6 +439,12 @@
                 align-items: center;
                 border-bottom-right-radius: 3px;
                 border-top-right-radius: 3px;
+                @media all and (max-width: 768px) {
+                    width: 100%;
+                    border-top-right-radius: 0px;
+                    border-bottom-left-radius: 3px;
+                    background-color: rgba(99, 150, 189, .75);
+                }
                 .taxe {
                     height: 80%;
                     width: auto;
@@ -471,7 +492,7 @@
             }
         }
         .header-product {
-            margin-top: 100px;
+            margin-top: 150px;
             display: flex;
             align-items: center;
             justify-content: space-between;

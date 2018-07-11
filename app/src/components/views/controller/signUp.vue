@@ -1,5 +1,6 @@
 <template>
     <section id="signup">
+        <notifications group="erlog" classes="my-notification"></notifications>
         <form @submit.prevent="inscription" class="form-container">
             <div class="groupir">
                 <div class="control">
@@ -55,6 +56,8 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex'
+
     export default {
         name: "signUp",
         data() {
@@ -76,6 +79,9 @@
             }
         },
         methods: {
+            ...mapActions([
+                'newStep'
+            ]),
             inscription() {
                 if (this.user.password != this.confirm) {
                     this.notMatch = true
@@ -86,14 +92,25 @@
                     address: this.address
                 }).then(response => {
                     console.log(response.data.user)
-                    if (response.data.user){
+                    if (response.data.user) {
                         this.$emit('connect', response.data.user)
-                        this.$router.push('/')
+                        if (window.location.href.split('?').length > 1) {
+                            this.newStep(2)
+                            this.$router.push('/cart')
+                        } else {
+                            this.$router.push('/')
+                        }
+                    } else {
+                        this.$notify({
+                            group: 'erlog',
+                            type: 'error',
+                            title: 'Erreur de connexion',
+                            text: response.data
+                        });
                     }
+                }).catch(e => {
+                    console.error(e)
                 })
-                    .catch(e => {
-                        console.error(e)
-                    })
             }
         }
     }
@@ -107,23 +124,30 @@
     }
 
     #signup {
-        height: 100vh;
         width: 100vw;
+        height: 100vh;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         .form-container {
             width: 40%;
             margin: 0 auto;
+            @media all and (max-width: 768px){
+                width: 55%;
+                margin-top: 50px;
+            }
         }
         form {
-            height: 60%;
+            height: 500px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             font-size: 15px;
             margin: 20px 0;
+            @media all and (max-width: 768px){
+                height: 600px;
+            }
             .pass-not-match {
                 align-self: center;
                 color: #E45353;
@@ -136,6 +160,12 @@
                 width: 100%;
                 .control {
                     width: 45%;
+                }
+                @media all and (max-width: 768px){
+                    flex-direction: column;
+                    .control {
+                        width: 100%;
+                    }
                 }
             }
             .control {
@@ -186,7 +216,7 @@
                 width: 20%;
                 align-self: flex-end;
                 color: #5F93BB;
-                @media all and (max-width: 768px){
+                @media all and (max-width: 768px) {
                     width: 35%;
                 }
                 &:hover {

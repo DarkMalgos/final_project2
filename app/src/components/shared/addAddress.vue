@@ -47,7 +47,7 @@
                 if (this.address.street != '' && this.address.city != '' && this.address.zipcode != '')  {
                     let user = this.$cookies.get('user')
                     if (user != null) {
-                        this.$http(`${process.env.PROD_URL}/api/addresses/${user}`, {
+                        this.$http.post(`${process.env.PROD_URL}/api/addresses/${user}`, {
                             address: this.address
                         }).then(response => {
                             this.address.id = response.data
