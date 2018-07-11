@@ -9,36 +9,36 @@
                 <div>
                     <div class="people">
                         <transition name="fade">
-                            <div class="circle">
+                            <div class="circle team1">
                                 <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             </div>
                         </transition>
-                        <p>Jean Patry</p>
-                        <p>Chef</p>
+                        <p>Marc Duval</p>
+                        <p>Founder</p>
                     </div>
                     <div class="people">
                         <transition name="fade">
-                            <div class="circle">
+                            <div class="circle team2">
                                 <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             </div>
                         </transition>
-                        <p>Jean Patry</p>
-                        <p>Chef</p>
+                        <p>Mary Jane</p>
+                        <p>Community</p>
                     </div>
                     <div class="people">
                         <transition name="fade">
-                            <div class="circle">
+                            <div class="circle team3">
                                 <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             </div>
                         </transition>
-                        <p>Jean Patry</p>
-                        <p>Chef</p>
+                        <p>Jose Calrissian</p>
+                        <p>Designer</p>
                     </div>
                 </div>
                 <div>
                     <div class="people">
                         <transition name="fade">
-                            <div class="circle">
+                            <div class="circle team4">
                                 <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             </div>
                         </transition>
@@ -46,11 +46,11 @@
                         <p>Chef</p>
                     </div>
                     <div class="people">
-                        <div class="circle">
+                        <div class="circle team5">
                             <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                         </div>
-                        <p>Jean Patry</p>
-                        <p>Chef</p>
+                        <p>Anne titegoutte</p>
+                        <p>Lead Dev</p>
                     </div>
                 </div>
             </div>
@@ -123,9 +123,8 @@
                         position: relative;
                         width: 150px;
                         height: 150px;
-                        background: url("../../../../assets/team.jpg") no-repeat center;
                         border-radius: 50%;
-                        background-size: cover;
+
                         .description {
                             opacity: 0;
                             position: absolute;
@@ -150,6 +149,26 @@
                         &:not(:first-of-type) {
                             margin-left: 20%;
                         }
+                    }
+                    .team1 {
+                        background: url("../../../../assets/team1.jpg") no-repeat center;
+                        background-size: cover;
+                    }
+                    .team2 {
+                        background: url("../../../../assets/team2.jpg") no-repeat top;
+                        background-size: cover;
+                    }
+                    .team3 {
+                        background: url("../../../../assets/team3.jpg") no-repeat top;
+                        background-size: cover;
+                    }
+                    .team4 {
+                        background: url("../../../../assets/team4.jpg") no-repeat center;
+                        background-size: cover;
+                    }
+                    .team5 {
+                        background: url("../../../../assets/team5.jpg") no-repeat center;
+                        background-size: cover;
                     }
                 }
             }
