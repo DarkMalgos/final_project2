@@ -1,7 +1,7 @@
 const express = require('express'),
     path = require('path'),
     router = express.Router(),
-    stripe = require("stripe")(`${process.env.STRIPE_KEY}`);
+    stripe = require("stripe")('sk_test_RIWezxT3NQk8zOWv4e1McLqD');
 
 const database = require('../services/database.js');
 
