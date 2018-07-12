@@ -62,13 +62,14 @@ router.post('/', function (req, res, next) {
                 console.error('error in adding user', err)
                 return
             }
+            let user = results.insertId
             database.sendQuery(`INSERT INTO address (street, city, zipcode, id_user) VALUES ('${req.body.address.street}', '${req.body.address.city}', '${req.body.address.zipcode}', ${results.insertId})`, function (err, results) {
                 if (err) {
                     console.error('error in adding address', err)
                     return
                 }
                 res.json({
-                    user: results.insertId
+                    user: user
                 })
             })
         })
