@@ -147,6 +147,7 @@
                     console.log(response.data)
                     if (response.data.charge == 'succeeded') {
                         this.newDelivery(response.data.id)
+                        this.$router.push('/delivery')
                     }
                 }).catch(e => {
                     console.error(e)
