@@ -67,7 +67,7 @@
                             document.getElementById('step3').value = 100
                             document.querySelector('#velo').style.left = '95%'
                             this.deliveryTxt = response.data.status
-                            this.$cookies.delete('cart')
+                            this.$cookies.remove('cart')
                             this.newQuantity([])
                         }
                     }).catch(e => {
