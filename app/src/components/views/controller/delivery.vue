@@ -34,7 +34,8 @@
         },
         methods: {
             ...mapActions([
-                'newQuantity'
+                'newQuantity',
+                'newStep'
             ]),
             init() {
                 var progress = ''
@@ -68,6 +69,7 @@
                             document.querySelector('#velo').style.left = '95%'
                             this.deliveryTxt = response.data.status
                             this.$cookies.remove('cart')
+                            this.newStep(1)
                             this.newQuantity([])
                         }
                     }).catch(e => {
