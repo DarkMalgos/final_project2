@@ -1,6 +1,6 @@
 <template>
     <draggable v-model="products" :options="{group:{name:'product', pull: 'clone', put: false }}" class="products" @end="onAdd">
-        <div v-for="product in products" class="product">
+        <div v-for="(product, index) in products" class="product">
             <img :src="product.path" :alt="product.name">
             <div class="info">
                 <h3>{{product.name}}</h3>
@@ -9,6 +9,7 @@
                     <p>Prix</p>
                     <p>{{product.price}} €</p>
                 </div>
+                <div class="button" @click="plusProduct(index)">+</div>
             </div>
         </div>
     </draggable>
@@ -32,6 +33,9 @@
         methods: {
             onAdd(evt) {
                 this.$emit('drop', evt)
+            },
+            plusProduct(index) {
+                this.$emit('plus', index)
             }
         }
     }
@@ -48,6 +52,9 @@
         width: 70%;
         min-height: 150px;
         height: auto;
+        @media all and (max-width: 768px) {
+            width: 60%;
+        }
     }
     .product {
         display: flex;
@@ -91,6 +98,18 @@
                     color: #5F93BB;
                 }
             }
+            .button {
+                align-self: flex-end;
+                color: #5f93bb;
+                transition: all ease .2s;
+                width: 15%;
+                font-size: 30px;
+                padding: 0;
+                &:hover {
+                    color: white;
+                }
+            }
         }
+
     }
 </style>

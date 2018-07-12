@@ -15,61 +15,61 @@
                 <div class="swiper-button-prev" slot="button-prev"></div>
                 <div class="swiper-button-next" slot="button-next"></div>
             </swiper>
-        </div>
-        <div id="menu" class="container">
-            <div class="container-picto">
-                <div class="picto-cube">
-                    <img src="../../../assets/pin.svg" alt="">
-                </div>
-                <div class="triangle"></div>
-            </div>
-            <input id="loc" ref="autocomplete" type="text" v-model="address"
-                   placeholder="60 quai de Jemmapes, Paris, 750011">
-            <div class="loop"><img src="../../../assets/search.png" alt=""></div>
-            <div class="order-taxe">
-                <div class="taxe" @click="getTaxe('30/40 mins', 2)">
-                    <div>
-                        <img src="../../../assets/delivery.png" alt="">
-                        <p>2€</p>
+            <div id="menu" class="container">
+                <div class="container-picto">
+                    <div class="picto-cube">
+                        <img src="../../../assets/pin.svg" alt="">
                     </div>
-                    <p>30/40 mins</p>
+                    <div class="triangle"></div>
                 </div>
-                <div class="taxe" @click="getTaxe('15/30 mins', 3)">
-                    <div>
-                        <img src="../../../assets/scoot.png" alt="">
-                        <p>3€</p>
+                <input id="loc" ref="autocomplete" type="text" v-model="address"
+                       placeholder="60 quai de Jemmapes, Paris, 750011">
+                <div class="loop"><img src="../../../assets/search.png" alt=""></div>
+                <div class="order-taxe">
+                    <div class="taxe" @click="getTaxe('30/40 mins', 2)">
+                        <div>
+                            <img src="../../../assets/delivery.png" alt="">
+                            <p>2€</p>
+                        </div>
+                        <p>30/40 mins</p>
                     </div>
-                    <p>15/30 mins</p>
-                </div>
-                <div class="taxe active-taxe" @click="getTaxe('< 15 mins', 4)">
-                    <div>
-                        <img src="../../../assets/clock.png" alt="">
-                        <p>4€</p>
+                    <div class="taxe" @click="getTaxe('15/30 mins', 3)">
+                        <div>
+                            <img src="../../../assets/scoot.png" alt="">
+                            <p>3€</p>
+                        </div>
+                        <p>15/30 mins</p>
                     </div>
-                    <p>< 15 mins</p>
+                    <div class="taxe active-taxe" @click="getTaxe('< 15 mins', 4)">
+                        <div>
+                            <img src="../../../assets/clock.png" alt="">
+                            <p>4€</p>
+                        </div>
+                        <p>< 15 mins</p>
+                    </div>
                 </div>
             </div>
         </div>
         <section class="container">
             <header class="header-product">
                 <div class="sandwich" :class="{filter:filter=='Sandwich'}" @click="getFilter('Sandwich')">
-                    <p>Sandwich</p>
+                    <p>Sandwichs</p>
                 </div>
                 <div class="plats" :class="{filter:filter=='Plats'}" @click="getFilter('Plats')">
-                    <p>Plat</p>
+                    <p>Plats</p>
                 </div>
                 <div class="dessert" :class="{filter:filter=='Dessert'}" @click="getFilter('Dessert')">
-                    <p>Dessert</p>
+                    <p>Desserts</p>
                 </div>
                 <div class="planche" :class="{filter:filter=='Planche'}" @click="getFilter('Planche')">
-                    <p>Planche</p>
+                    <p>Planches</p>
                 </div>
                 <div class="vin" :class="{filter:filter=='Vin'}" @click="getFilter('Vin')">
-                    <p>Vin</p>
+                    <p>Vins</p>
                 </div>
             </header>
             <div class="product-zone container">
-                <products v-bind:products="products" v-on:drop="drop"></products>
+                <products v-bind:products="products" v-on:drop="drop" v-on:plus="plus"></products>
                 <div class="basket">
                     <h2>Votre Panier</h2>
                     <p v-if="cart.length>0">Glissez et déposez vos choix ici pour les ajouter</p>
@@ -220,6 +220,25 @@
                 this.products[evt.oldIndex].total = this.products[evt.oldIndex].quantity * this.products[evt.oldIndex].price
                 this.getUnderTotal()
             },
+            plus(index) {
+                let check = []
+
+                for (let i = 0; i < this.cart.length; i++) {
+                    if (this.cart[i].id == this.products[index].id) {
+                        check.push(i)
+                    }
+                }
+
+                if (check.length > 0) {
+                    for (let i = 0; i < check.length; i++) {
+                        this.cart[check[i]].quantity++
+                        this.cart[check[i]].total = this.cart[check[i]].quantity * this.cart[check[i]].price
+                    }
+                } else {
+                    this.cart.push(this.products[index])
+                }
+                this.getUnderTotal()
+            },
             getTaxe(txt, taxe) {
                 this.taxe.price = taxe
                 this.taxe.txt = txt
@@ -326,11 +345,13 @@
     }
 
     #catalog {
-        position: relative;
         margin-top: 10vh;
-        height: auto;
         .swiper-zone {
             height: 70%;
+            margin-bottom: 100px;
+            @media all and (max-width: 768px) {
+                height: 80%;
+            }
             .swiper-container {
                 height: 100%;
                 display: flex;
@@ -358,7 +379,7 @@
             position: absolute;
             background-color: white;
             height: 80px;
-            top: 44%;
+            top: 64%;
             left: 50%;
             transform: translateX(-50%);
             box-shadow: 0px 1px 10px rgba(99, 150, 189, .16);
@@ -369,7 +390,8 @@
             justify-content: flex-start;
             border-radius: 3px;
             @media all and (max-width: 768px) {
-                top: 13.5%;
+                height: 60px;
+                top: 40%;
                 flex-wrap: wrap;
                 border-radius: 5px;
             }
@@ -492,7 +514,6 @@
             }
         }
         .header-product {
-            margin-top: 150px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -505,10 +526,8 @@
             .dessert,
             .planche,
             .vin {
-                background: url('../../../assets/connexion.jpg') no-repeat center;
-                background-size: cover;
                 border-radius: 3px;
-                width: 200px;
+                width: 19%;
                 height: 100px;
                 display: flex;
                 justify-content: center;
@@ -527,6 +546,26 @@
                 &:hover {
                     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, .5);
                 }
+            }
+            .sandwich {
+                background: url('../../../assets/3.jpg') no-repeat center;
+                background-size: cover;
+            }
+            .plats {
+                background: url('../../../assets/1.jpg') no-repeat center;
+                background-size: cover;
+            }
+            .dessert {
+                background: url('../../../assets/5.jpg') no-repeat center;
+                background-size: cover;
+            }
+            .planche {
+                background: url('../../../assets/2.jpg') no-repeat center;
+                background-size: cover;
+            }
+            .vin {
+                background: url('../../../assets/13.jpg') no-repeat center;
+                background-size: cover;
             }
             .filter {
                 box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, .5);
@@ -548,6 +587,9 @@
                 padding-top: 20px;
                 padding-bottom: 20px;
                 box-shadow: 1px 2px 10px 0px rgba(106, 146, 183, .2);
+                @media all and (max-width: 768px) {
+                    width: 40%;
+                }
                 h2,
                 p {
                     margin-left: 10px;

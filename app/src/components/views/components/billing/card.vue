@@ -159,6 +159,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        @media all and (max-width: 768px) {
+            width: 100%;
+        }
     }
 
     .sections {

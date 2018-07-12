@@ -1,7 +1,7 @@
 <template>
     <section id="ship">
         <div class="container">
-            <h1>Le bien mangé français livré où vous voulez !</h1>
+            <h1>Le bien manger français livré où vous voulez !</h1>
             <div>
                 <input ref="autocomplete" type="text" id="adress" placeholder="60 quai de Jemmapes, Paris, 750011"
                        @keyup.enter="goCommander" v-model="address">
@@ -69,7 +69,7 @@
         height: 90vh;
         width: 100%;
         margin-top: 10vh;
-        background: url("../../../../assets/accueil2.jpg") center no-repeat;
+        background: url("../../../../assets/accueil.jpg") center no-repeat;
         background-size: cover;
         .container {
             display: flex;
@@ -79,7 +79,9 @@
             height: 100%;
             h1 {
                 margin-bottom: 50px;
-                font-size: 25px;
+                font-size: 35px;
+                color: white;
+                text-shadow: 0px 3px 6px rgba(0, 0, 0, .5);
             }
             img {
                 width: 500px;

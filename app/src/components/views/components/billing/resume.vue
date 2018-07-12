@@ -174,6 +174,9 @@
         width: 40vw;
         background: white;
         border-radius: 5px;
+        @media all and (max-width: 768px) {
+            width: 100%;
+        }
         form {
             display: flex;
             flex-direction: column;

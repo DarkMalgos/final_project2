@@ -44,6 +44,9 @@
             height: 20vh;
             padding: 20px;
             border-radius: 5px;
+            @media all and (max-width: 768px) {
+                width: 100%;
+            }
         }
         .p5 {
             padding: 5%;

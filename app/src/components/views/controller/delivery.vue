@@ -140,6 +140,9 @@
             -ms-transform: scale(-1, 1);
             transform: scale(-1, 1);
             transition: all ease 1.5s;
+            @media all and (max-width: 767px){
+                width: 13%;
+            }
         }
     }
 

@@ -38,6 +38,7 @@
 
 <script>
     import modal from './notUser'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name: "basket",
@@ -68,6 +69,9 @@
             }
         },
         methods: {
+            ...mapActions([
+                'newQuantity'
+            ]),
             getTaxe(txt, taxe) {
                 this.taxe.price = taxe
                 this.taxe.txt = txt
@@ -98,8 +102,8 @@
                     this.underTotal = 0
                     this.Total = this.taxe.price
                     this.$cookies.remove('cart')
-                    this.newQuantity(this.cart)
                 }
+                this.newQuantity(this.cart)
             },
             removeItem(index) {
                 this.cart[index].quantity--
@@ -109,11 +113,13 @@
                 }
                 this.itemTotal(index)
                 this.getUnderTotal()
+                this.newQuantity(this.cart)
             },
             addItem(index) {
                 this.cart[index].quantity++
                 this.itemTotal(index)
                 this.getUnderTotal()
+                this.newQuantity(this.cart)
             },
             itemTotal(index) {
                 this.cart[index].total = this.cart[index].quantity * this.cart[index].price

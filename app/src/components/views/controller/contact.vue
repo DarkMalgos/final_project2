@@ -24,7 +24,7 @@
         <div class="information">
             <div class="tel">
                 <img src="../../../assets/phone.png" alt="">
-                <a href="tel:0155889043">0155889043</a>
+                <a href="tel:0155889043">01 55 88 90 43</a>
             </div>
             <div class="mail">
                 <img src="../../../assets/mail.png" alt="">

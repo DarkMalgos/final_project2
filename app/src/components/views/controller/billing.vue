@@ -89,6 +89,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        @media all and (max-width: 768px) {
+            margin-top: 25%;
+            width: 80%;
+        }
         .steps {
             width: 100%;
             display: flex;

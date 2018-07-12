@@ -80,7 +80,6 @@
         align-items: center;
         border-radius: 3px;
         border: solid 2px #5F93BB;
-        height: auto;
         cursor: pointer;
         transition: all ease .5s;
         padding: 5px;
