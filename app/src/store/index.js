@@ -7,7 +7,8 @@ const state = {
         token: '',
         address: '',
         quantity: 0,
-        step: ''
+        step: '',
+        delivery: 4
     },
     mutations = {
         setAddress(state, payload) {
@@ -25,6 +26,10 @@ const state = {
         },
         setStep(state, payload) {
             state.step = payload
+        },
+        setDelivery(state, payload) {
+            state.delivery = payload
+            console.log(state.delivery)
         }
     },
     getters = {
@@ -39,6 +44,9 @@ const state = {
         },
         getStep(state) {
             return state.step
+        },
+        getDelivery(state) {
+            return state.delivery
         }
     },
     actions = {
@@ -53,6 +61,9 @@ const state = {
         },
         newQuantity({commit}, payload) {
             commit('setQuantity', payload)
+        },
+        newDelivery({commit}, payload) {
+            commit('setDelivery', payload)
         }
     }
 

@@ -66,7 +66,7 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name: "resume",
@@ -113,6 +113,9 @@
             ])
         },
         methods: {
+            ...mapActions([
+                'newDelivery'
+            ]),
             getUnderTotal() {
                 let calc = 0
                 for (let item of this.cart) {
@@ -142,8 +145,8 @@
                     address: this.address
                 }).then(response => {
                     console.log(response.data)
-                    if (response.data == 'succeeded') {
-
+                    if (response.data.charge == 'succeeded') {
+                        this.newDelivery(response.data.id)
                     }
                 }).catch(e => {
                     console.error(e)
