@@ -136,7 +136,7 @@
             -o-transform: scale(-1, 1);
             -ms-transform: scale(-1, 1);
             transform: scale(-1, 1);
-            transition: all ease .2s;
+            transition: all ease 1.5s;
         }
     }
 
