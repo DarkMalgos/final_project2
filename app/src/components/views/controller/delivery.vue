@@ -39,12 +39,10 @@
                 this.$http.get(`${process.env.PROD_URL}/api/products/order/${this.getDelivery}`)
                     .then(response => {
                         if (response.data.status == 'En attente de validation') {
-                            console.log('1')
                             progress = document.getElementById('step1');
                             this.deliveryTxt = response.data.status
                             this.progressBar(progress)
                         } else if (response.data.status == 'En cours de préparation') {
-                            console.log('2')
                             clearInterval(this.inter)
                             document.getElementById('step1').value = 100
                             document.querySelector('#velo').style.left = '22%'
@@ -52,7 +50,6 @@
                             this.deliveryTxt = response.data.status
                             this.progressBar(progress)
                         } else if (response.data.status == 'En cours de livraison') {
-                            console.log('3')
                             clearInterval(this.inter)
                             document.getElementById('step1').value = 100
                             document.getElementById('step2').value = 100
@@ -61,21 +58,21 @@
                             this.deliveryTxt = response.data.status
                             this.progressBar(progress)
                         } else {
-                            console.log('4')
                             clearInterval(this.inter)
                             document.getElementById('step1').value = 100
                             document.getElementById('step2').value = 100
                             document.getElementById('step3').value = 100
                             document.querySelector('#velo').style.left = '95%'
                             this.deliveryTxt = response.data.status
-                        }
+                            this.$cookies.delete('cart')
 
-                        console.log('toto', progress)
+                        }
                     }).catch(e => {
                         console.error(e)
                 })
             },
             progressBar(progress) {
+                clearInterval(this.inter)
                 this.inter = setInterval(() => {
                     console.log('progress', progress)
                     const val = progress.value;

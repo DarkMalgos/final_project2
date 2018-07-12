@@ -100,7 +100,9 @@
                             self.$http.post(`${process.env.PROD_URL}/api/addresses/${self.id}`, {
                                 address: self.address
                             }).then(response => {
-                                if (response.data == 'ok')
+                                if (response.data > 0)
+                                    self.address.id = response.data
+                                    self.newAddress(self.address)
                                     self.$emit('next')
                             }).catch(e => {
                                 console.error(e)
