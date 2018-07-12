@@ -7,7 +7,7 @@
                     <p>Pour pouvoir pousuivre votre achat vous devez vous connecter à votre compte ou en créer un.</p>
                     <div class="links p5">
                         <router-link to="/sign-in?redirect=1" class="button">Connection</router-link>
-                        <router-link to="/sign-up" class="button">Inscription</router-link>
+                        <router-link to="/sign-up?redirect=1" class="button">Inscription</router-link>
                     </div>
                 </div>
             </section>
