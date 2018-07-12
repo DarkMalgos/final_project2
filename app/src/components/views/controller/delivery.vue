@@ -33,6 +33,9 @@
             }, 5000)
         },
         methods: {
+            ...mapActions([
+                'newQuantity'
+            ]),
             init() {
                 var progress = ''
 
@@ -65,7 +68,7 @@
                             document.querySelector('#velo').style.left = '95%'
                             this.deliveryTxt = response.data.status
                             this.$cookies.delete('cart')
-
+                            this.newQuantity([])
                         }
                     }).catch(e => {
                         console.error(e)
