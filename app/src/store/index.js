@@ -8,7 +8,7 @@ const state = {
         address: '',
         quantity: 0,
         step: '',
-        delivery: 4
+        delivery: NaN
     },
     mutations = {
         setAddress(state, payload) {
