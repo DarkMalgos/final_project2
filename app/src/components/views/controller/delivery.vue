@@ -130,6 +130,7 @@
         img {
             position: absolute;
             top: -10%;
+            left: 0;
             width: 7%;
             -moz-transform: scale(-1, 1);
             -webkit-transform: scale(-1, 1);
