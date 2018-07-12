@@ -98,6 +98,7 @@
                     this.underTotal = 0
                     this.Total = this.taxe.price
                     this.$cookies.remove('cart')
+                    this.newQuantity(this.cart)
                 }
             },
             removeItem(index) {
